@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import ElSearchTablePagination from 'el-table-pagination'
 import NavInfo from './components/navInfo'
 
+import './elementDialogDrag.js'  //拖拽 <el-dialog v-dialogDrag></el-dialog>
+
 // 将API方法绑定到全局
 Vue.prototype.$api = api
 

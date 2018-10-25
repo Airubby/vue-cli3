@@ -83,7 +83,11 @@ export default new Vuex.Store({
         checkPORT({ commit }, obj) {//这个obj就是需要的参数，这个blur事件经过validator包装后的参数。随后的就跟官网上的一样了，随意写。
             console.log(obj);
             if (!obj.value) {
-                obj.callback(new Error('不能为空'))
+                if(obj.rules.required){
+                    obj.callback(new Error('不能为空'))
+                }else{
+                    obj.callback()
+                }
             } else if (Math.round(Number(obj.value)) !== Number(obj.value)) {
                 obj.callback(new Error('必须为整数数字'))
             } else {

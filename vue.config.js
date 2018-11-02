@@ -47,25 +47,16 @@ module.exports = {
         https: false,
         hotOnly: false,
         // 设置代理
-        proxy: {
-            '/iSmacSite/ismacsite' : {
-				target : 'http://192.168.16.26:8080', // 你接口的域名
-				secure : false, // 如果是https接口，需要配置这个参数
-				changeOrigin : true, // 如果接口跨域，需要进行这个参数配置
-				pathRewrite : {
-					'^/iSmacSite/ismacsite' : '/iSmacSite/ismacsite'
-				}
-
-            },
-            // '/api': {
-            // target: 'https://cnodejs.org', // 你接口的域名
-            //     secure: false,
-            //     changeOrigin: true,
-            //     pathRewrite:{
-            //     '^/api':'/api/v1/'
-            //     }
-		    // }
-        },
+        // proxy: {
+        //     // '/api': {
+        //     // target: 'https://cnodejs.org', // 你接口的域名
+        //     //     secure: false, // 如果是https接口，需要配置这个参数
+        //     //     changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+        //     //     pathRewrite:{
+        //     //     '^/api':'/api/v1/'
+        //     //     }
+		//     // }
+        // },
         before: app => {
         }
     },

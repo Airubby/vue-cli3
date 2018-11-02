@@ -1,26 +1,10 @@
-import ElementUI from 'element-ui'
-import router from './router'
-var rootUrl="/iSmacSite/ismacsite"
-// 配置API接口地址
-//var root = '/api'  //开发环境
-// var root1=(function(){
-//     //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp  
-//     var curWwwPath=window.document.location.href;  
-//     //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp  
-//     var pathName=window.document.location.pathname;  
-//     var pos=curWwwPath.indexOf(pathName);  
-//     //获取主机地址，如： http://localhost:8083  
-//     var localhostPaht=curWwwPath.substring(0,pos);  
-//     //获取带"/"的项目名，如：/uimcardprj  
-//     //var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);  
-//     //return(localhostPaht+projectName);  
-//     return localhostPaht;
-// })();
-// var root=root1+'/ismacsite';
-//用basic的root2  生产环境
 // 引用axios
-var axios = require('axios')
+import axios from "axios"
 import Qs from 'qs'
+import { Message } from 'element-ui'
+import router from './router'
+import $AjaxUrl from './utils/developUrl'
+
 // 自定义判断元素类型JS
 function toType (obj) {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
@@ -65,12 +49,12 @@ function apiAxios (method, url, params, success, failure) {
     params: method === 'POST' ? null : params,
     data:method==='POST'? Qs.stringify(params):null,
     headers: method === 'POST'? {'Content-Type':'application/x-www-form-urlencoded'}: null,
-    baseURL: rootUrl,
+    baseURL: $AjaxUrl,
     withCredentials: true
   })
   .then(function (res) {
     if(res.data.err_code=="-1"){
-        ElementUI.Message.warning("请登录系统");
+        Message.warning("请登录系统");
         router.push({path:'/login'});
         if(sessionStorage.loginInfo){
           sessionStorage.removeItem('loginInfo');

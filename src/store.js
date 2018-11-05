@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state:{
+        token:'88888888',
         navList:[
             // {url:'/index',name:'首页',icon:'static/images/home.svg',item:[]},
             // {url:'/control',name:'实时监控',icon:'static/images/home.svg',item:[
@@ -41,6 +42,9 @@ export default new Vuex.Store({
    getters:{
        getNavInfo(state){
            return state.navList;
+       },
+       token(state){
+            return state.token;
        }
    },
    mutations:{

@@ -6,9 +6,10 @@
         list-field="list" 
         total-field="total"
         method='post' 
-        :page-sizes="[1,2,3]"
+        :page-sizes="[2,20,30]"
         border :data="table_data" :columns="table_columns" ref="thisRef">   
         <el-table-column slot="prepend" type="selection"></el-table-column>
+        <el-table-column slot="prepend" type="index"></el-table-column>
         <template slot-scope="scope" slot="preview-handle">
             
         </template>
@@ -21,8 +22,9 @@
         method='get' 
         border :columns="table_columns" ref="thisRef">   
         <el-table-column slot="prepend" type="selection"></el-table-column>
+        <el-table-column slot="prepend" type="index"></el-table-column>
         <template slot-scope="scope" slot="preview-handle">
-            
+            <span @click="postFn">post提交</span>
         </template>
     </el-search-table-pagination>
     <hr>
@@ -40,18 +42,27 @@
   </div>
 </template>
 <script>
+import * as API from '@/api/testApi';
 export default {
     created () {
-        this.$api.get('/getData', {}, r => {
-            console.log(r)
-            if(r.code==200){
-                this.table_data=r.data;
-            }else{
-                this.$message.warning(r.err_msg);
-            }
-        });
+        // this.$api.get('/getData', {}, r => {
+        //     console.log(r)
+        //     if(r.code==200){
+        //         this.table_data=r.data;
+        //     }else{
+        //         this.$message.warning(r.err_msg);
+        //     }
+        // });
         this.date=new Date();
         this.fDate=this.$tool.formatDate(this.date);
+        API.getTest({name:"123"}).then(res=> {
+            console.log(res)
+            if(res.code==200) {
+                this.table_data=res.data;
+            }else{
+                this.$message.warning(res.msg);
+            }
+        })
     },
     mounted() {
         
@@ -86,7 +97,17 @@ export default {
     methods:{
        clickbtn:function(){
            this.disabled=true;
-       }
+       },
+       postFn:function(){
+            API.postTest({name:'test',value:'342'}).then(res=> {
+                console.log(res)
+                if(res.code==200) {
+                    this.table_data=res.data;
+                }else{
+                    this.$message.warning("错误");
+                }
+            })
+       },
     },
     components:{}
 }

@@ -1,59 +1,70 @@
 <template>
-  <el-scrollbar style="height:500px;" class="loncom_scrollbar">
-    <div class="about" style="padding-bottom:300px;">
-        <nav-info></nav-info>
-        <img alt="Vue logo" src="~@/assets/images/logo.png">
-        <el-search-table-pagination  type="local"
-            url=""
-            list-field="list" 
-            total-field="total"
-            method='post' 
-            :showIndex="true"
-            :page-sizes="[2,20,30]"
-            border :data="table_data" :columns="table_columns" ref="thisRef">   
-            <el-table-column slot="prepend" type="selection"></el-table-column>
-            
-            <template slot-scope="scope" slot="preview-handle">
-                
-            </template>
-        </el-search-table-pagination>
-        <hr>
-        <el-search-table-pagination
-            :url="$ajaxUrl+'/getData'"
-            list-field="data" 
-            total-field="total"
-            method='get' 
-            border :columns="table_columns" ref="thisRef">   
-            <el-table-column slot="prepend" type="selection"></el-table-column>
-            <el-table-column slot="prepend" type="index" label="序号"></el-table-column>
-            <template slot-scope="scope" slot="preview-handle">
-                <span @click="postFn">post提交</span>
-            </template>
-        </el-search-table-pagination>
-        <hr>
-        <div>{{ emptyTitle|empty('如果emptyTitle为空就显示这个') }}</div>
-        <hr>
-        {{sex|sexFilter}}----------------------------后台传入的是 1 表示男
-        <hr>
-        {{date}} | {{fDate}} | {{new Date(date).Format('yyyy-MM-dd hh:mm')}}
-        <hr>
-        <el-checkbox-group v-model="checkList">
-            <span v-for="inItem in answers"><el-checkbox :disabled="disabled" :class="{'acheck':correct && $tool.arrayContains(inItem.no,correctList)}" :label="inItem.no" :value="inItem.no" :key="inItem.no">{{inItem.answer}}</el-checkbox></span>
-        </el-checkbox-group>
-        <el-button @click="clickbtn" size="small">禁用</el-button>
-        <hr>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="端口" prop="port">
-                <el-input v-model="ruleForm.port"></el-input>
-            </el-form-item>
-        </el-form>
-        <hr>
+    <div>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <span @click="relaodPage"><router-link to="/about">About</router-link></span> | 
+      <router-link to="/test">Test</router-link>
     </div>
-  </el-scrollbar>
+    <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
+        <div class="about" style="padding-bottom:300px;">
+            <nav-info></nav-info>
+            <img alt="Vue logo" src="~@/assets/images/logo.png">
+            <el-search-table-pagination  type="local"
+                url=""
+                list-field="list" 
+                total-field="total"
+                method='post' 
+                :showIndex="true"
+                :page-sizes="[2,20,30]"
+                border :data="table_data" :columns="table_columns" ref="thisRef">   
+                <el-table-column slot="prepend" type="selection"></el-table-column>
+                
+                <template slot-scope="scope" slot="preview-handle">
+                    
+                </template>
+            </el-search-table-pagination>
+            <hr>
+            <el-search-table-pagination
+                :url="$ajaxUrl+'/getData'"
+                list-field="data" 
+                total-field="total"
+                method='get' 
+                border :columns="table_columns" ref="thisRef">   
+                <el-table-column slot="prepend" type="selection"></el-table-column>
+                <el-table-column slot="prepend" type="index" label="序号"></el-table-column>
+                <template slot-scope="scope" slot="preview-handle">
+                    <span @click="postFn">post提交</span>
+                </template>
+            </el-search-table-pagination>
+            <hr>
+            <div>{{ emptyTitle|empty('如果emptyTitle为空就显示这个') }}</div>
+            <hr>
+            {{sex|sexFilter}}----------------------------后台传入的是 1 表示男
+            <hr>
+            {{date}} | {{fDate}} | {{new Date(date).Format('yyyy-MM-dd hh:mm')}}
+            <hr>
+            <el-checkbox-group v-model="checkList">
+                <template v-for="inItem in answers">
+                <el-checkbox :disabled="disabled" :class="{'acheck':correct && $tool.arrayContains(inItem.no,correctList)}" :label="inItem.no" :value="inItem.no" :key="inItem.no">{{inItem.answer}}</el-checkbox>
+                </template>
+            </el-checkbox-group>
+            <el-button @click="clickbtn" size="small">禁用</el-button>
+            <hr>
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="端口" prop="port">
+                    <el-input v-model="ruleForm.port"></el-input>
+                </el-form-item>
+            </el-form>
+            <hr>
+        </div>
+    </el-scrollbar>
+  </div>
 </template>
 <script>
 import * as API from '@/api/testApi';
 export default {
+    name:'About',
+    inject:['reload'],
     created () {
         // this.$api.get('/getData', {}, r => {
         //     console.log(r)
@@ -75,15 +86,15 @@ export default {
         })
     },
     mounted() {
-        console.log(this.$store.token)
+        
     },
     data() {
-        let checkport=(rules,value,callback)=>{　//转换函数，主要目的是传给store内方法的参数。
-    　　　　this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkPORT是写在store中的checkPORT，vuex规定参数必须传对象。
-    　　}
+        let checkport=(rules,value,callback)=>{//转换函数，主要目的是传给store内方法的参数。
+            this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkPORT是写在store中的checkPORT，vuex规定参数必须传对象。
+        };
         return {
             checkList:[],
-          　table_data:[],
+            table_data:[],
             table_forms: {
                 inline: true,
                 size:'small',
@@ -126,6 +137,10 @@ export default {
                     this.$message.warning("错误");
                 }
             })
+       },
+       relaodPage:function(){
+           debugger;
+           this.reload();
        },
     },
     components:{}

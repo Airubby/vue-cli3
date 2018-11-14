@@ -27,6 +27,7 @@ Vue.prototype.$ajaxUrl = ajaxUrl
 //绑定request到全局
 Vue.prototype.$request = request
 
+//store.commit('resetNavList',menu)     
 
 Vue.use(ElementUI)
 Vue.use(ElSearchTablePagination)

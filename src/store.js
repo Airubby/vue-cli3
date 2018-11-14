@@ -43,47 +43,21 @@ export default new Vuex.Store({
        getNavInfo(state){
            return state.navList;
        },
+       //getNavInfo: state => state.navList,           ???state.app.navList
        token(state){
             return state.token;
        }
    },
    mutations:{
-        resetNavList(state,navList){
-            state.navList=navList;
+        resetNavList(state,menu){
+            state.navList=menu;
         },
-        resetModel(state,obj){
-          
-            for(var item in state){
-                if(item!="navList"){
-                    state[item]={};
-                }else{
-                    state.navList=[];
-                }
-            }
-        },
-        setModel(state,arr){
-            if(state[arr[0]]==undefined){
-                state[arr[0]]={};
-            }
+        theFn(){
 
-            state[arr[0]][arr[1]]=true;
         },
-        // dd(){
-
-        // },
+        
    },
    actions:{
-       //使用如下
-        // data(){
-        // 　　let checkport=(rules,value,callback)=>{　//转换函数，主要目的是传给store内方法的参数。
-        // 　　　　this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkAge是写在store中的，vuex规定参数必须传对象。
-        // 　　}
-        // 　　return {
-        // 　　　　rules:{
-        // 　　　　　　age:[{required:true,trigger:'blur',validator:checkport}]//主要格式是标准json。
-        // 　　　　}，
-        // 　　}
-        // }
         checkPORT({ commit }, obj) {//这个obj就是需要的参数，这个blur事件经过validator包装后的参数。随后的就跟官网上的一样了，随意写。
             console.log(obj);
             if (!obj.value) {
@@ -97,7 +71,7 @@ export default new Vuex.Store({
             } else {
                 obj.callback()
             }
-            //commit('dd')
+            commit('theFn')
         }
    },
 })

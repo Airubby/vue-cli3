@@ -12,3 +12,4 @@ export function getTest(arg) {
 export function postTest(arg) {
   return request.post(`/postData`,  arg);
 }
+

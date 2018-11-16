@@ -18,6 +18,8 @@ import './assets/css/index.less'
 import './assets/js/index.js'
 
 
+import echarts from 'echarts'
+
 // // 将API方法绑定到全局
 // Vue.prototype.$api = api
 //绑定工具函数到全局
@@ -26,6 +28,8 @@ Vue.prototype.$tool = tool
 Vue.prototype.$ajaxUrl = ajaxUrl
 //绑定request到全局
 Vue.prototype.$request = request
+
+Vue.prototype.$echarts = echarts 
 
 //store.commit('resetNavList',menu)     
 

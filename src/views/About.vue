@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="content">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <span @click="relaodPage"><router-link to="/about">About</router-link></span> | 
+      <span @click="reloadPage"><router-link to="/about">About</router-link></span> | 
       <router-link to="/test">Test</router-link>
     </div>
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
@@ -138,8 +138,7 @@ export default {
                 }
             })
        },
-       relaodPage:function(){
-           debugger;
+       reloadPage:function(){
            this.reload();
        },
     },

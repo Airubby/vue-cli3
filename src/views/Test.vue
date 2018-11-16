@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> | 
@@ -16,12 +16,13 @@
             <br>
             不用for循环找出months小于7的cat
             <hr>
+            <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+            <hr>
         </div>
     </el-scrollbar>
   </div>
 </template>
 <script>
-
 export default {
     created () {
         
@@ -46,6 +47,7 @@ export default {
             }
         }
         console.log(kittens)
+        this.drawLine();
 
     },
     data() {
@@ -54,7 +56,25 @@ export default {
        }
    },
     methods:{
-       
+       drawLine(){
+            // 基于准备好的dom，初始化echarts实例
+            let myChart = this.$echarts.init(document.getElementById('myChart'))
+            // 绘制图表
+            myChart.setOption({
+                title: { text: '在Vue中使用echarts' },
+                tooltip: {},
+                xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            });
+        }
+
     },
     components:{}
 }

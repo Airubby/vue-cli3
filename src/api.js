@@ -3,7 +3,7 @@ import axios from "axios"
 import Qs from 'qs'
 import { Message } from 'element-ui'
 import router from './router'
-import $AjaxUrl from './utils/developUrl'
+import $AjaxUrl from './utils/ajaxUrl'
 
 // 自定义判断元素类型JS
 function toType (obj) {

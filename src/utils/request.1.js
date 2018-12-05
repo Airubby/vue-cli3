@@ -2,10 +2,13 @@ import axios from "axios";
 import Qs from "querystring";
 import { Message } from 'element-ui'
 import store from '@/store'
-// import $AjaxUrl from './ajaxUrl'
-let service = axios.create({
+import $AjaxUrl from './ajaxUrl'
+
+// 创建axios实例
+
+const service = axios.create({
   // baseURL: 'http://www.javasoft.top:9090/service',
-  baseURL: store.getters.AjaxUrl,
+  baseURL: $AjaxUrl,
   timeout: 5000 // 请求超时时间
 });
 

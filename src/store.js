@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state:{
         token:'88888888',
+        AjaxUrl:'',
         navList:[
             // {url:'/index',name:'首页',icon:'static/images/home.svg',item:[]},
             // {url:'/control',name:'实时监控',icon:'static/images/home.svg',item:[
@@ -44,13 +45,19 @@ export default new Vuex.Store({
            return state.navList;
        },
        //getNavInfo: state => state.navList,           ???state.app.navList
+       AjaxUrl(state){
+            return state.AjaxUrl;
+       },
        token(state){
             return state.token;
-       }
+        }
    },
    mutations:{
         resetNavList(state,menu){
             state.navList=menu;
+        },
+        setAjaxUrl(state,ajaxUrl){
+            state.AjaxUrl=ajaxUrl;
         },
         theFn(){
 
@@ -69,9 +76,13 @@ export default new Vuex.Store({
             } else if (Math.round(Number(obj.value)) !== Number(obj.value)) {
                 obj.callback(new Error('必须为整数数字'))
             } else {
-                obj.callback()
+                if(Number(obj.value)>65535||Number(obj.value)<1){
+                    obj.callback("端口范围在1-65535之间")
+                }else{
+                    obj.callback()
+                }
             }
             commit('theFn')
-        }
+        },
    },
 })

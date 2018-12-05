@@ -17,6 +17,16 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'home',
+  provide(){
+    return{
+      data:this.data
+    }
+  },
+  data(){
+      return{
+        data:'13',
+      }
+    },
   components: {
     HelloWorld
   }

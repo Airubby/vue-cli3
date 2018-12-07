@@ -4,12 +4,47 @@
   </div>
 </template>
 <script>
+import store from './store'
   export default {
     name: 'app',
     provide(){
       return{
         reload:this.reload
       }
+    },
+    created () {
+        
+    },
+    mounted() {
+        function wsConnection(sendMsg, callback) {
+          // var url = location.host.indexOf(":")!=-1?location.host.slice(0, location.host.indexOf(":")):location.host
+          // var url="echo.websocket.org";
+          // var port="80";
+          try {
+              //var SOCKECT_ADDR = "ws://" + url +":"+ port;
+              // var SOCKECT_ADDR="ws://192.168.16.253:80/websocket"
+              var SOCKECT_ADDR="ws://192.168.1.253:8090/ws"
+              let ws = new WebSocket(SOCKECT_ADDR);
+              ws.onopen = function (event) {
+                  console.log(event)
+                  console.log("已经与服务器建立了连接\r\n当前连接状态：" + this.readyState);
+                  //ws.send(sendMsg);
+              };
+            
+              ws.onmessage = callback;
+              ws.onclose = function (event) {
+                console.log(event)
+              };
+              ws.onerror = function (event) {
+                console("WebSocket异常！" + event.toString());
+              };
+          } catch (ex) {
+              console(ex.message);
+          }
+        }
+        wsConnection("sendMsg",function(result){
+          store.commit('setwsData',eval(result.data));
+        })
     },
     data(){
       return{

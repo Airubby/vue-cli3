@@ -7,8 +7,8 @@
     </div>
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
         <div class="about" style="padding-bottom:300px;">
-            <nav-info></nav-info>
             <img alt="Vue logo" src="~@/assets/images/logo.png">
+            <nav-info></nav-info>
             <el-search-table-pagination  type="local"
                 url=""
                 list-field="list" 
@@ -58,10 +58,12 @@
             <hr>
         </div>
     </el-scrollbar>
+    <webSocket :wsInfo="table_data"></webSocket>
   </div>
 </template>
 <script>
 import * as API from '@/api/testApi';
+import webSocket from '@/components/webSocket.vue'
 export default {
     name:'About',
     inject:['reload'],
@@ -104,6 +106,8 @@ export default {
             },
             table_columns:[
               { prop: 'name', label: '名称',minWidth:10},
+              { prop: 'content', label: '内容',minWidth:10},
+              { prop: 'value', label: '值',minWidth:10},
               { prop: 'handle', label: '操作',slotName:'preview-handle',width:100},
             ],
             emptyTitle:"管道empty，如果为空就显示管道empty()中的值",
@@ -123,7 +127,7 @@ export default {
 
 
        }
-   },
+    },
     methods:{
        clickbtn:function(){
            this.disabled=true;
@@ -142,7 +146,8 @@ export default {
            this.reload();
        },
     },
-    components:{}
+    
+    components:{webSocket}
 }
 </script>
 

@@ -5,6 +5,7 @@
       <router-link to="/about">About</router-link> | 
       <router-link to="/test">Test</router-link>
     </div>
+    <div class="img"></div>
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
         <div class="about" style="padding-bottom:300px;">
             const cats = [
@@ -16,16 +17,41 @@
             <br>
             不用for循环找出months小于7的cat
             <hr>
+            <el-search-table-pagination  type="local"
+                url=""
+                list-field="list" 
+                total-field="total"
+                method='post' 
+                :showIndex="true"
+                :page-sizes="[2,20,30]"
+                border :data="table_data" :columns="table_columns" ref="thisRef">   
+                <el-table-column slot="prepend" type="selection"></el-table-column>
+                
+                <template slot-scope="scope" slot="preview-handle">
+                    
+                </template>
+            </el-search-table-pagination>
+            <hr>
             <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
             <hr>
         </div>
     </el-scrollbar>
+    <webSocket :wsInfo="table_data"></webSocket>
   </div>
 </template>
 <script>
+import webSocket from '@/components/webSocket.vue'
+import * as API from '@/api/testApi';
 export default {
     created () {
-        
+        API.getTest({name:"123"}).then(res=> {
+            console.log(res)
+            if(res.code==200) {
+                this.table_data=res.data;
+            }else{
+                this.$message.warning(res.msg);
+            }
+        })
     },
     mounted() {
         const cats=[
@@ -52,7 +78,20 @@ export default {
     },
     data() {
         return {
-            
+            table_data:[],
+            table_forms: {
+                inline: true,
+                size:'small',
+                forms: [
+                    // { prop: 'fname', label: '',placeholder:'名称' },
+                ]
+            },
+            table_columns:[
+              { prop: 'name', label: '名称',minWidth:10},
+              { prop: 'content', label: '内容',minWidth:10},
+              { prop: 'value', label: '值',minWidth:10},
+              { prop: 'handle', label: '操作',slotName:'preview-handle',width:100},
+            ],
        }
    },
     methods:{
@@ -76,13 +115,19 @@ export default {
         }
 
     },
-    components:{}
+    components:{webSocket}
 }
 </script>
 
 <style scoped lang="less">
     hr{
         margin:15px 0;
+    }
+    .img{
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        background:url("~@/assets/images/logo.png") no-repeat;
     }
     
 </style>

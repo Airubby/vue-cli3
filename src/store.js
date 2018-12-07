@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state:{
         token:'88888888',
         AjaxUrl:'',
+        wsData:{},
         navList:[
             // {url:'/index',name:'首页',icon:'static/images/home.svg',item:[]},
             // {url:'/control',name:'实时监控',icon:'static/images/home.svg',item:[
@@ -48,6 +49,9 @@ export default new Vuex.Store({
        AjaxUrl(state){
             return state.AjaxUrl;
        },
+       getWSData(state){
+            return state.wsData;
+        },
        token(state){
             return state.token;
         }
@@ -58,6 +62,9 @@ export default new Vuex.Store({
         },
         setAjaxUrl(state,ajaxUrl){
             state.AjaxUrl=ajaxUrl;
+        },
+        setwsData(state,wsData){
+            state.wsData=wsData;
         },
         theFn(){
 

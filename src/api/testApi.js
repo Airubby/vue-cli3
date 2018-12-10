@@ -12,4 +12,8 @@ export function getTest(arg) {
 export function postTest(arg) {
   return request.post(`/postData`,  arg);
 }
+//mock本地数据，开发环境的前缀url设置为空，
+export function getMock(arg) {
+  return request.get(`/getMockData`,  arg);
+}
 

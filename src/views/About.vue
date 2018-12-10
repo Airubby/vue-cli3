@@ -16,7 +16,7 @@
                 method='post' 
                 :showIndex="true"
                 :page-sizes="[2,20,30]"
-                border :data="table_data" :columns="table_columns" ref="thisRef">   
+                border :data="table_data1" :columns="table_columns" ref="thisRef">   
                 <el-table-column slot="prepend" type="selection"></el-table-column>
                 
                 <template slot-scope="scope" slot="preview-handle">
@@ -28,8 +28,9 @@
                 :url="$ajaxUrl+'/getData'"
                 list-field="data" 
                 total-field="total"
+                :page-sizes="[2,20,30]"
                 method='get' 
-                border :columns="table_columns" ref="thisRef">   
+                border :webSocketInfo="table_data" @resultData="resultData" :columns="table_columns" ref="thisRef">   
                 <el-table-column slot="prepend" type="selection"></el-table-column>
                 <el-table-column slot="prepend" type="index" label="序号"></el-table-column>
                 <template slot-scope="scope" slot="preview-handle">
@@ -58,6 +59,7 @@
             <hr>
         </div>
     </el-scrollbar>
+    <webSocket :wsInfo="table_data1"></webSocket>
     <webSocket :wsInfo="table_data"></webSocket>
   </div>
 </template>
@@ -71,24 +73,34 @@ export default {
         // this.$api.get('/getData', {}, r => {
         //     console.log(r)
         //     if(r.code==200){
-        //         this.table_data=r.data;
+        //         this.table_data1=r.data;
         //     }else{
         //         this.$message.warning(r.err_msg);
         //     }
         // });
+
         this.date=new Date();
         this.fDate=this.$tool.formatDate(this.date);
         API.getTest({name:"123"}).then(res=> {
             console.log(res)
             if(res.code==200) {
-                this.table_data=res.data;
+                this.table_data1=res.data;
             }else{
                 this.$message.warning(res.msg);
             }
         })
+        //mock本地数据，开发环境的前缀url设置为空，
+        // API.getMock({name:"mock"}).then(res=> {
+        //     console.log(res)
+        //     if(res.code==200) {
+        //         this.table_data1=res.data;
+        //     }else{
+        //         this.$message.warning(res.msg);
+        //     }
+        // })
+
     },
     mounted() {
-        
     },
     data() {
         let checkport=(rules,value,callback)=>{//转换函数，主要目的是传给store内方法的参数。
@@ -97,6 +109,7 @@ export default {
         return {
             checkList:[],
             table_data:[],
+            table_data1:[],
             table_forms: {
                 inline: true,
                 size:'small',
@@ -145,8 +158,14 @@ export default {
        reloadPage:function(){
            this.reload();
        },
+       resultData:function(value){
+           console.log(value)
+           this.table_data=value.data;
+       },
     },
-    
+    watch:{
+
+    },
     components:{webSocket}
 }
 </script>

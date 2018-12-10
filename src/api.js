@@ -3,7 +3,8 @@ import axios from "axios"
 import Qs from 'qs'
 import { Message } from 'element-ui'
 import router from './router'
-import $AjaxUrl from './utils/ajaxUrl'
+// import $AjaxUrl from './utils/ajaxUrl'
+import store from '@/store'
 
 // 自定义判断元素类型JS
 function toType (obj) {
@@ -44,12 +45,10 @@ function apiAxios (method, url, params, success, failure) {
   axios({
     method: method,
     url: url,
-    data: method === 'GET' ? params : null,
-    params: method === 'GET' ? params : null,
-    params: method === 'POST' ? null : params,
-    data:method==='POST'? Qs.stringify(params):null,
+    params: method === 'POST' ? null :  method === 'GET' ? params : null,
+    data:method==='POST'? Qs.stringify(params):method === 'GET' ? params : null,
     headers: method === 'POST'? {'Content-Type':'application/x-www-form-urlencoded'}: null,
-    baseURL: $AjaxUrl,
+    baseURL: store.getters.AjaxUrl,
     withCredentials: true
   })
   .then(function (res) {
@@ -71,7 +70,7 @@ function apiAxios (method, url, params, success, failure) {
   .catch(function (err) {
     let res = err.response
     if (err) {
-      //console.log('api error, HTTP CODE: ' + res.status)
+      console.log('api error, HTTP CODE: ' + res)
     }
   })
 }

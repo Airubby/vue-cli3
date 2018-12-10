@@ -5,9 +5,9 @@
       <router-link to="/about">About</router-link> | 
       <router-link to="/test">Test</router-link>
     </div>
-    <div class="img"></div>
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
         <div class="about" style="padding-bottom:300px;">
+            <div class="img"></div>
             const cats = [
                 { name: 'Mojo',    months: 84 },
                 { name: 'Mao-Mao', months: 34 },

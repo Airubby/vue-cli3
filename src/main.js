@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-// import api from './api' 用request，为每个模块的调用写一个js
+import api from './api' //用request，为每个模块的调用写一个js
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ElSearchTablePagination from 'el-table-pagination'
@@ -17,11 +17,12 @@ import tool from './utils/tool'  //工具函数
 import './assets/css/index.less'
 import './assets/js/index.js'
 
+import './utils/mock.js'
 
 import echarts from 'echarts'
 
 // // 将API方法绑定到全局
-// Vue.prototype.$api = api
+Vue.prototype.$api = api
 //绑定工具函数到全局
 Vue.prototype.$tool = tool
 

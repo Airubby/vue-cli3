@@ -11,6 +11,7 @@
     "echarts": "^4.2.0-rc.2",
     "el-table-pagination": "^0.4.33",
     "element-ui": "^2.4.6",
+    "swiper": "^4.4.6",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

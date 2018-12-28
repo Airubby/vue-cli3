@@ -57,6 +57,25 @@
                 </el-form-item>
             </el-form>
             <hr>
+            <div id="swiper-container" class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="width:300px">Slide 1</div>
+                    <div class="swiper-slide" style="width:300px">Slide 2</div>
+                    <div class="swiper-slide" style="width:300px">Slide 3</div>
+                    <div class="swiper-slide" style="width:300px">Slide 11</div>
+                    <div class="swiper-slide" style="width:300px">Slide 21</div>
+                    <div class="swiper-slide" style="width:300px">Slide 31</div>
+                </div>
+                <!-- 如果需要导航按钮 -->
+                <div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <hr>
+
         </div>
     </el-scrollbar>
     <webSocket :wsInfo="table_data1"></webSocket>
@@ -66,6 +85,7 @@
 <script>
 import * as API from '@/api/testApi';
 import webSocket from '@/components/webSocket.vue'
+import Swiper from 'swiper';
 export default {
     name:'About',
     inject:['reload'],
@@ -101,6 +121,20 @@ export default {
 
     },
     mounted() {
+        new Swiper('#swiper-container', {
+            // autoplay: false,//可选选项，自动滑动
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            // slidesPerView: 3,
+        })
     },
     data() {
         let checkport=(rules,value,callback)=>{//转换函数，主要目的是传给store内方法的参数。
@@ -176,6 +210,12 @@ export default {
     }
     .logo{
         // background:url("~@/assets/images/logo.png") no-repeat;
+    }
+    .swiper-container{
+        width: 1000px;
+        margin: 0 auto;
+        height:200px;
+        padding: 0 70px;
     }
     
     

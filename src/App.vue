@@ -1,10 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" ref="app">
     <router-view v-if="isRouterAlive"/>
   </div>
 </template>
 <script>
 import store from './store'
+import { mapGetters } from 'vuex'
+// const _import = file => () => require('@/assets/css/' + file + '/index.less')
   export default {
     name: 'app',
     provide(){
@@ -15,7 +17,17 @@ import store from './store'
     created () {
         
     },
+    computed:{
+    //   ...mapGetters({
+    //     'getWSData':"getWSData"  //起别名用，如果不起别名用下面的
+    //   })
+    //// 映射 `this.getWSData` 为 `store.getters.getWSData`
+        ...mapGetters([
+            'getTheme'
+        ]),
+    },
     mounted() {
+        this.switchTheme(this.$theme)
         function wsConnection(sendMsg, callback) {
           // var url = location.host.indexOf(":")!=-1?location.host.slice(0, location.host.indexOf(":")):location.host
           // var url="echo.websocket.org";
@@ -36,15 +48,16 @@ import store from './store'
                 console.log(event)
               };
               ws.onerror = function (event) {
-                console("WebSocket异常！" + event.toString());
+                console.log("WebSocket异常！" + event.toString());
               };
           } catch (ex) {
-              console(ex.message);
+              console.log(ex.message);
           }
         }
         wsConnection("sendMsg",function(result){
           store.commit('setwsData',eval(result.data));
         })
+
     },
     data(){
       return{
@@ -57,8 +70,19 @@ import store from './store'
         this.$nextTick(function(){
           this.isRouterAlive=true;
         })
-      }
+      },
+      switchTheme:function(themeName){
+        console.log(themeName)
+        this.$refs.app.className=themeName+"_theme"
+        console.log()
+      },
     },
+    watch:{
+      getTheme:function(val){
+          console.log(123213)
+          this.switchTheme(val)
+      }
+    }
   }
 </script>
 <style lang="less">

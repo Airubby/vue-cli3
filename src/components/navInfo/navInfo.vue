@@ -1,12 +1,19 @@
 <template>
     <div class="loncom_content">
-        全局组件
+        风格切换：
+        <el-switch
+        style="display: block"
+        v-model="value"
+        active-color="#13ce66"
+        inactive-color="#ff4949"
+        active-text="酷黑风格"
+        inactive-text="亮白风格">
+        </el-switch>
     </div>
 </template>
 
 <script>
-
-import { mapGetters } from 'vuex'
+import store from '@/store'
 export default {
     name: 'NavInfo',
     created () {
@@ -20,7 +27,7 @@ export default {
     
     data(){
       return {
-          
+          value:false
       }
     },
     methods:{
@@ -28,7 +35,15 @@ export default {
 
     }, 
     watch:{
-        
+        value:function(val){
+            console.log(val)
+            if(val){
+                store.commit('setTheme','black');
+            }else{
+                store.commit('setTheme','default');
+            }
+            
+        }
     } 
 }
 </script>

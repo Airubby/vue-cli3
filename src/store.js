@@ -8,6 +8,7 @@ export default new Vuex.Store({
         token:'88888888',
         AjaxUrl:'',
         wsData:{},
+        theme:'',
         navList:[
             // {url:'/index',name:'首页',icon:'static/images/home.svg',item:[]},
             // {url:'/control',name:'实时监控',icon:'static/images/home.svg',item:[
@@ -54,7 +55,10 @@ export default new Vuex.Store({
         },
        token(state){
             return state.token;
-        }
+        },
+        getTheme(state){
+            return state.theme;
+        },
    },
    mutations:{
         resetNavList(state,menu){
@@ -65,6 +69,9 @@ export default new Vuex.Store({
         },
         setwsData(state,wsData){
             state.wsData=wsData;
+        },
+        setTheme(state,themeName){
+            state.theme=themeName;
         },
         theFn(){
 
@@ -87,6 +94,57 @@ export default new Vuex.Store({
                     obj.callback("端口范围在1-65535之间")
                 }else{
                     obj.callback()
+                }
+            }
+            commit('theFn')
+        },
+        checkIP({ commit }, obj) {
+            if (!obj.value) {
+                if(obj.rules.required){
+                    obj.callback(new Error('不能为空'))
+                }else{
+                    obj.callback()
+                }
+            } else {
+              var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+                if(reg.test(obj.value)){
+                    obj.callback()
+                }else{
+                    obj.callback("ip格式错误")
+                }
+            }
+            commit('theFn')
+        },
+        checkEMAIL({ commit }, obj) {
+            if (!obj.value) {
+                if(obj.rules.required){
+                    obj.callback(new Error('不能为空'))
+                }else{
+                    obj.callback()
+                }
+            } else {
+              var reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+                if(reg.test(obj.value)){
+                    obj.callback()
+                }else{
+                    obj.callback("邮箱格式错误")
+                }
+            }
+            commit('theFn')
+        },
+        checkPHONE({ commit }, obj) {
+            if (!obj.value) {
+                if(obj.rules.required){
+                    obj.callback(new Error('不能为空'))
+                }else{
+                    obj.callback()
+                }
+            } else {
+              var reg = /^1[345789]\d{9}$/
+                if(reg.test(obj.value)){
+                    obj.callback()
+                }else{
+                    obj.callback("手机格式错误")
                 }
             }
             commit('theFn')

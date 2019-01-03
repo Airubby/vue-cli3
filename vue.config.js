@@ -1,6 +1,7 @@
 module.exports = {
     // 基本路径
     baseUrl: './',
+    //baseUrl: process.env.NODE_ENV === "production" ? "./" : "/"
     // 输出文件目录
     outputDir: 'dist',
     // eslint-loader 是否在保存的时候检查
@@ -13,6 +14,21 @@ module.exports = {
     chainWebpack: () => {
     },
     configureWebpack: () => {
+        // if (process.env.NODE_ENV === 'production') {
+        //     // 为生产环境修改配置...
+        //     config.mode = 'production';
+        // } else {
+        //     // 为开发环境修改配置...
+        //     config.mode = 'development';
+        // }
+        // Object.assign(config, {
+        //     // 开发生产共同配置
+        //     resolve: {
+        //         alias: {
+        //             '@': path.resolve(__dirname, './src'),
+        //         }
+        //     }
+        // });
     },
     // vue-loader 配置项
     // https://vue-loader.vuejs.org/en/options.html
@@ -26,7 +42,12 @@ module.exports = {
         // 开启 CSS source maps?
         sourceMap: false,
         // css预设器配置项
-        loaderOptions: {},
+        loaderOptions: {
+            //为每个css引入公共需要引入的样式
+            // less:{
+            //     data:`@import "@/assets/public.less"`
+            // }
+        },
         // 启用 CSS modules for all css / pre-processor files.
         modules: false
     },

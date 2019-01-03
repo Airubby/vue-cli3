@@ -85,7 +85,6 @@
 <script>
 import * as API from '@/api/testApi';
 import webSocket from '@/components/webSocket.vue'
-import Swiper from 'swiper';
 export default {
     name:'About',
     inject:['reload'],
@@ -121,7 +120,7 @@ export default {
 
     },
     mounted() {
-        new Swiper('#swiper-container', {
+        new this.$Swiper('#swiper-container', {
             // autoplay: false,//可选选项，自动滑动
             slidesPerView: 'auto',
             spaceBetween: 30,

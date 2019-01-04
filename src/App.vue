@@ -5,6 +5,7 @@
 </template>
 <script>
 import store from './store'
+import Vue from 'vue'
 import { mapGetters } from 'vuex'
 // const _import = file => () => require('@/assets/css/' + file + '/index.less')
   export default {
@@ -39,7 +40,7 @@ import { mapGetters } from 'vuex'
               let ws = new WebSocket(SOCKECT_ADDR);
               ws.onopen = function (event) {
                   console.log(event)
-                  console.log("已经与服务器建立了连接\r\n当前连接状态：" + this.readyState);
+                  console.log("已经与服务器建立了连接\r\n当前连接状态：" + event);
                   //ws.send(sendMsg);
               };
             
@@ -51,7 +52,7 @@ import { mapGetters } from 'vuex'
                 console.log("WebSocket异常！" + event.toString());
               };
           } catch (ex) {
-              console.log(ex.message);
+              console.log(ex);
           }
         }
         wsConnection("sendMsg",function(result){
@@ -72,14 +73,16 @@ import { mapGetters } from 'vuex'
         })
       },
       switchTheme:function(themeName){
-        console.log(themeName)
-        this.$refs.app.className=themeName+"_theme"
-        console.log()
+        this.$refs.app.className=themeName+"_theme";
+        Vue.prototype.$theme=themeName;
+        this.$nextTick(function(){
+          this.reload();
+        })
+        
       },
     },
     watch:{
       getTheme:function(val){
-          console.log(123213)
           this.switchTheme(val)
       }
     }

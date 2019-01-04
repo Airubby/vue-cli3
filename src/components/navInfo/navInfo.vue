@@ -21,7 +21,11 @@ export default {
         
     },
     mounted() {
-       
+       if(this.$theme=="default"){
+           this.value=false
+       }else{
+           this.value=true;
+       }
 
     },
     
@@ -36,13 +40,11 @@ export default {
     }, 
     watch:{
         value:function(val){
-            console.log(val)
             if(val){
                 store.commit('setTheme','black');
             }else{
                 store.commit('setTheme','default');
             }
-            
         }
     } 
 }

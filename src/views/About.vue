@@ -7,8 +7,10 @@
     </div>
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
         <div class="about" style="padding-bottom:300px;">
-            <img alt="Vue logo" src="~@/assets/images/logo.png">
+            <!--<img alt="Vue logo" src="~@/assets/images/logo.png">-->
+            <img alt="Vue logo" :src="require('../assets/images/'+$theme+'_logo.png')">
             <nav-info></nav-info>
+            <hr>
             <el-search-table-pagination  type="local"
                 url=""
                 list-field="list" 
@@ -89,6 +91,7 @@ export default {
     name:'About',
     inject:['reload'],
     created () {
+        console.log(this.$theme)
         // this.$api.get('/getData', {}, r => {
         //     console.log(r)
         //     if(r.code==200){

@@ -8,6 +8,8 @@
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
         <div class="about" style="padding-bottom:300px;">
             <div class="img"></div>
+            <nav-info></nav-info>
+            <hr>
             const cats = [
                 { name: 'Mojo',    months: 84 },
                 { name: 'Mao-Mao', months: 34 },
@@ -120,14 +122,5 @@ export default {
 </script>
 
 <style scoped lang="less">
-    hr{
-        margin:15px 0;
-    }
-    .img{
-        width: 200px;
-        height: 200px;
-        margin: 0 auto;
-        background:url("~@/assets/images/logo.png") no-repeat;
-    }
-    
+    @import "~@/assets/css/test.less";
 </style>

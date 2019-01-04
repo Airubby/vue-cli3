@@ -22,8 +22,7 @@ import './utils/mock.js'
 
 import echarts from 'echarts'
 
-import './assets/css/default/index.less'
-import './assets/css/black/index.less'
+import './assets/css/index.less'
 
 // // 将API方法绑定到全局
 Vue.prototype.$api = api

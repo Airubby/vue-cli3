@@ -1,0 +1,109 @@
+<template>
+  <div class="home content">
+    <h2>一级菜单展示1</h2>
+    <el-upload
+      class="elinput"
+      ref="upload"
+      :action="$ajaxUrl+'/upload/xml'"
+      :data="{cmd:'xml'}"
+      :on-success="onSuccess"
+      :on-error="onError"
+      :on-change="onchange"
+      :show-file-list="false"
+      :file-list="fileList"
+      :auto-upload="false">
+      <el-input v-model="xmlurl" readonly placeholder="上传展示"></el-input>
+      <div slot="tip" class="el-upload__tip" v-show="xmlshow" style="color:#f56c6c;text-align:right;">{{showInfo}}</div>
+    </el-upload>
+    <hr>
+    <h2>滚动展示</h2>
+    <el-scrollbar style="height:300px;" class="scrollbar">
+      <div class="scrollbarbox">
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p>
+      </div>
+    </el-scrollbar>
+    <hr>
+    <div id="test"></div>
+    <hr>
+
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: '',
+  mounted() {
+    let _this=this;
+    let scrollbar=this.$el.querySelector(".el-scrollbar__wrap");
+    scrollbar.onscroll=function(){
+      let viewH=scrollbar.offsetHeight;
+      let contentH=_this.$el.querySelector(".scrollbarbox").offsetHeight;
+      let scrollTop=scrollbar.scrollTop;
+      if((scrollTop + viewH) - 32 >= contentH){  //el-scrollbar组件有32的误差 ，有的却不存在这个误差~~~~
+          _this.$message.success('请求分页加载更多数据了~~~');
+      }
+    }
+    this.$el.querySelector("#test").innerHTML="哈哈"
+    this.$el.querySelector("#test").classList.add("test1")
+    console.log(this.$el.querySelector("#test").offsetWidth)
+    console.log(this.$el.querySelector("#test").offsetHeight)
+  },
+  data(){
+      return{
+        xmlurl:'',
+        xmlshow:false,
+        fileList:[],
+        showInfo:'',
+      }
+    },
+  methods: {
+    onSuccess(res, file, fileList){
+        this.fileList=[];
+        console.log(res,file,fileList)
+        if(res.err_code=="0"){
+            console.log('上传成功')
+        }else{//上传失败
+            this.showInfo=res.err_msg;
+            this.xmlshow=true;
+        }
+        
+    },
+    onError(err, file, fileList){
+        this.fileList=[];
+        console.log(err,file,fileList)
+        this.$message.warning(err);
+        
+    },
+    onchange(file,fileList){
+        console.log(file,fileList)
+        var fileArry=file.name.split(".");
+        var fileType=fileArry[fileArry.length-1];
+        if(fileType=="xml"||fileType=="XML"){
+            this.$refs.upload.submit();
+        }else{
+            this.fileList=[];
+            this.showInfo="只能上传xml/XML文件";
+            this.xmlshow=true;
+        }
+    }
+  },
+  components: {
+    
+  }
+}
+</script>
+<style scoped>
+  
+</style>

@@ -20,7 +20,7 @@ import './assets/js/index.js'
 
 import './utils/mock.js'
 
-import echarts from 'echarts'
+// import echarts from 'echarts'  //做成公共函数 在tool中
 
 import './assets/css/index.less'
 
@@ -30,7 +30,7 @@ Vue.prototype.$api = api
 Vue.prototype.$tool = tool
 
 Vue.prototype.$Swiper = Swiper
-Vue.prototype.$echarts = echarts 
+// Vue.prototype.$echarts = echarts 
 
 //store.commit('resetNavList',menu)     
 Vue.use(ElementUI)

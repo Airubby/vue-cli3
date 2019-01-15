@@ -36,7 +36,9 @@ import { mapGetters } from 'vuex'
           try {
               //var SOCKECT_ADDR = "ws://" + url +":"+ port;
               // var SOCKECT_ADDR="ws://192.168.16.253:80/websocket"
-              var SOCKECT_ADDR="ws://192.168.1.253:8090/ws"
+              //let host=window.document.location.host;
+              //let SOCKECT_ADDR="ws://"+host+"/ws"
+              let SOCKECT_ADDR="ws://192.168.1.253:8090/ws"
               let ws = new WebSocket(SOCKECT_ADDR);
               ws.onopen = function (event) {
                   console.log(event)

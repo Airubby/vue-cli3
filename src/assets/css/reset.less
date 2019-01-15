@@ -1,0 +1,9 @@
+// 重置elementui的样式等
+@import './black/reset.less';
+@import './default/reset.less';
+
+.scrollbar .el-scrollbar__wrap { //给外层class不然element组件自己的会有问题比如下拉选项
+    overflow-x: hidden !important;
+}
+
+

@@ -5,8 +5,12 @@
       <router-link to="/about">About</router-link> | 
       <router-link to="/test">Test</router-link>
     </div>
-    <!--<img alt="Vue logo" src="../assets/images/logo.png">-->
-    <img alt="Vue logo" :src="require('../assets/images/'+$theme+'_logo.png')">
+    <!--
+      <img alt="Vue logo" src="../assets/images/logo.png">
+      <img alt="Vue logo" :src="'static/images/logo.png'">
+    -->
+    <img alt="Vue logo" :src="require('../assets/images/'+$theme+'/logo.png')">
+    
     <NavInfo></NavInfo>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>

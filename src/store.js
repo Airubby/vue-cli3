@@ -149,5 +149,24 @@ export default new Vuex.Store({
             }
             commit('theFn')
         },
+        checkNumber({ commit }, obj) {
+            if (!obj.value) {
+                if(obj.rules.required){
+                    obj.callback(new Error('不能为空'))
+                }else{
+                    obj.callback()
+                }
+            } else {
+                let regPos = /^\d+(\.\d+)?$/; //非负浮点数
+                //let regPos = /^([1-9]+)$/;  //大于0的正整数
+                // let regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+                if(regPos.test(obj.value)){
+                    obj.callback()
+                }else{
+                    obj.callback('请输入正数数值')
+                }
+            }
+            commit('theFn')
+        },
    },
 })

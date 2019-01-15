@@ -7,8 +7,11 @@
     </div>
     <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
         <div class="about" style="padding-bottom:300px;">
-            <!--<img alt="Vue logo" src="~@/assets/images/logo.png">-->
-            <img alt="Vue logo" :src="require('../assets/images/'+$theme+'_logo.png')">
+            <!--
+                <img alt="Vue logo" src="~@/assets/images/logo.png">
+                <img alt="Vue logo" :src="require('@/'+imgurl)">
+            -->
+            <img alt="Vue logo" :src="require('@/assets/images/'+$theme+'/logo.png')">
             <nav-info></nav-info>
             <hr>
             <el-search-table-pagination  type="local"
@@ -44,7 +47,7 @@
             <hr>
             {{sex|sexFilter}}----------------------------后台传入的是 1 表示男
             <hr>
-            {{date}} | {{fDate}} | {{new Date(date).Format('yyyy-MM-dd hh:mm')}}
+            {{date}} | {{fDate}} | {{new Date(date).Format('yyyy-MM-dd hh:mm')}} | {{$tool.Format(date,'yyyy-MM-dd hh:mm:ss')}}
             <hr>
             <el-checkbox-group v-model="checkList">
                 <template v-for="inItem in answers">
@@ -120,7 +123,6 @@ export default {
         //         this.$message.warning(res.msg);
         //     }
         // })
-
     },
     mounted() {
         new this.$Swiper('#swiper-container', {
@@ -143,6 +145,7 @@ export default {
             this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkPORT是写在store中的checkPORT，vuex规定参数必须传对象。
         };
         return {
+            imgurl:'assets/images/logo.png',
             checkList:[],
             table_data:[],
             table_data1:[],
@@ -163,6 +166,7 @@ export default {
             sex:1,
             date:'',
             fDate:'',
+            FDate:'',
             answers:[{no:"A",answer:'复选框 A'},{no:"B",answer:'复选框 B'},{no:"C",answer:'复选框 C'},{no:"D",answer:'复选框 D'}],
             correctList:['A','B'],
             correct:true,

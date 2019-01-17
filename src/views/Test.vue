@@ -39,11 +39,16 @@
                 <el-col :span="12"><div id="myChart" :style="{width: '100%', height: '300px'}"></div></el-col>
                 <el-col :span="12"><div id="myChart1" :style="{width: '100%', height: '300px'}"></div></el-col>
             </el-row>
-            
+            <hr>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                <el-checkbox v-for="city in cities" :label="city.value" :key="city.value" :disabled="city.dis">{{city.name}}</el-checkbox>
+            </el-checkbox-group>
             <hr>
         </div>
     </el-scrollbar>
-    <webSocket :wsInfo="table_data"></webSocket>
+    <webSocket :wsInfo="table_data" sendInfo="sysinfo"></webSocket>
   </div>
 </template>
 <script>
@@ -105,12 +110,37 @@ export default {
               { prop: 'value', label: '值',minWidth:10},
               { prop: 'handle', label: '操作',slotName:'preview-handle',width:100},
             ],
-            myChart1:''
+            myChart1:'',
+            checkAll: false,
+            checkedCities: [],
+            cities: [
+                {name:'上海',value:'上海',dis:false},
+                {name:'北京',value:'北京',dis:false},
+                {name:'广州',value:'广州',dis:true},
+                {name:'深圳',value:'深圳',dis:false}
+            ],
+            isIndeterminate: false
        }
    },
     methods:{
         drawLine(){
             this.myChart1=this.$tool.echartfn('myChart1',["衬衫1","羊毛衫1","雪纺衫1","裤子1","高跟鞋1","袜子1"],[15, 25, 16, 20, 40, 20]);
+        },
+        handleCheckAllChange(val) {
+            let arr=[];
+            for(let i=0;i<this.cities.length;i++){
+                if(!this.cities[i].dis){
+                    arr.push(this.cities[i].value);
+                }
+                
+            }
+            this.checkedCities = val ? arr : [];
+            this.isIndeterminate = false;
+        },
+        handleCheckedCitiesChange(value) {
+            let checkedCount = value.length;
+            this.checkAll = checkedCount === this.cities.length;
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
         }
 
     },

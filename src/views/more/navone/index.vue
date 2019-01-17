@@ -34,9 +34,9 @@
       </div>
     </el-scrollbar>
     <hr>
-    <div id="test"></div>
+    <div id="test" @click="enterTo">test</div>
     <hr>
-
+    
   </div>
 </template>
 
@@ -55,8 +55,10 @@ export default {
           _this.$message.success('请求分页加载更多数据了~~~');
       }
     }
-    this.$el.querySelector("#test").innerHTML="哈哈"
+    this.$el.querySelector("#test").innerHTML="this.$el.querySelector()设置dom；点击跳转传参数"
     this.$el.querySelector("#test").classList.add("test1")
+    this.$el.querySelector("#test").style.lineHeight="60px";
+    this.$el.querySelector("#test").style.textAlign="center";
     console.log(this.$el.querySelector("#test").offsetWidth)
     console.log(this.$el.querySelector("#test").offsetHeight)
   },
@@ -69,6 +71,12 @@ export default {
       }
     },
   methods: {
+    enterTo:function(){
+      this.$router.push({path:'/more/navtwo',query:{
+          param:JSON.stringify({"id":"123",name:'小呆'})
+        }
+      });
+    },
     onSuccess(res, file, fileList){
         this.fileList=[];
         console.log(res,file,fileList)

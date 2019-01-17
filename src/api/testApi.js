@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 /** 
- * [getTest 登录弹窗答题状态获取]
+ * [getTest 状态获取]
  * @param  {[type]} arg [description]
  * @return {[type]}     [description]
  */

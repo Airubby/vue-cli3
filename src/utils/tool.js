@@ -1,53 +1,8 @@
 import echarts from 'echarts'
+import Vue from 'vue'
 
-function formatDate(value) {
-  let date = new Date(value);
-  let y = date.getFullYear();
-  let MM = date.getMonth() + 1;
-  MM = MM < 10 ? "0" + MM : MM;
-  let d = date.getDate();
-  d = d < 10 ? "0" + d : d;
-  return y + "-" + MM + "-" + d + " ";
-}
-
-function formatTime(value) {
-  let date = new Date(value);
-  // let y = date.getFullYear();
-  // let MM = date.getMonth() + 1;
-  // MM = MM < 10 ? ('0' + MM) : MM;
-  // let d = date.getDate();
-  // d = d < 10 ? ('0' + d) : d;
-  let h = date.getHours();
-  h = h < 10 ? ('0' + h) : h;
-  let m = date.getMinutes();
-  m = m < 10 ? ('0' + m) : m;
-  let s = date.getSeconds();
-  s = s < 10 ? ('0' + s) : s;
-  // alert(h + ':' + m + ':' + s)
-  return h + ' : ' + m + ' : ' + s;
-
-}
-
-function translateTime(value) {
-  let date = new Date(value);
-  let y = date.getFullYear();
-  let MM = date.getMonth() + 1;
-  MM = MM < 10 ? "0" + MM : MM;
-  let d = date.getDate();
-  d = d < 10 ? "0" + d : d;
-  let h = date.getHours();
-  h = h < 10 ? ('0' + h) : h;
-  let m = date.getMinutes();
-  m = m < 10 ? ('0' + m) : m;
-  // let s = date.getSeconds();
-  // s = s < 10 ? ('0' + s) : s;
-  // alert(h + ':' + m + ':' + s)
-  return y + "年" + MM + "月" + d + "日 " + h + ':' + m;
-
-}
-
-function Format(value,fmt){
-  let date=new Date(value)
+function Format(fmt,value){
+  let date=value?new Date(value):new Date();
   let o = {
       "M+": date.getMonth() + 1, //月份 
       "d+": date.getDate(), //日 
@@ -90,5 +45,31 @@ function echartfn(ID,xData,yData){
     });
     return myChart;
 }
+function wsConnection(sendMsg, callback) {
+  try {
+      //var SOCKECT_ADDR = "ws://" + url +":"+ port;
+      //let host=window.document.location.host;
+      //let SOCKECT_ADDR="ws://"+host+"/ws"
+      let SOCKECT_ADDR="ws://192.168.16.6:8088/ws"
+      let ws = new WebSocket(SOCKECT_ADDR);
+      Vue.prototype.$ws=ws;
+      ws.onopen = function (event) {
+          console.log(event)
+          console.log("已经与服务器建立了连接\r\n当前连接状态：" + event);
+          ws.send(sendMsg);
+      };
+    
+      ws.onmessage = callback;
+      ws.onclose = function (event) {
+        console.log(event)
+      };
+      ws.onerror = function (event) {
+        console.log("WebSocket异常！" + event.toString());
+      };
+      Vue.prototype.$ws=ws;
 
-export default {formatDate,formatTime,translateTime,arrayContains,Format,echartfn}
+  } catch (ex) {
+      console.log(ex);
+  }
+}
+export default {arrayContains,Format,echartfn,wsConnection}

@@ -11,7 +11,7 @@
                 <img alt="Vue logo" src="~@/assets/images/logo.png">
                 <img alt="Vue logo" :src="require('@/'+imgurl)">
             -->
-            <img alt="Vue logo" :src="require('@/assets/images/'+$theme+'/logo.png')">
+            <img alt="Vue logo" :src="require('@/assets/images/'+$theme+'/logo.png')" v-if="$theme">
             <nav-info></nav-info>
             <hr>
             <el-search-table-pagination  type="local"
@@ -47,7 +47,7 @@
             <hr>
             {{sex|sexFilter}}----------------------------后台传入的是 1 表示男
             <hr>
-            {{date}} | {{fDate}} | {{new Date(date).Format('yyyy-MM-dd hh:mm')}} | {{$tool.Format(date,'yyyy-MM-dd hh:mm:ss')}}
+            {{date}} | {{fDate}} | {{new Date(date).Format('yyyy-MM-dd hh:mm')}} | {{$tool.Format('yyyy-MM-dd hh:mm:ss',date)}}
             <hr>
             <el-checkbox-group v-model="checkList">
                 <template v-for="inItem in answers">
@@ -83,8 +83,9 @@
 
         </div>
     </el-scrollbar>
-    <webSocket :wsInfo="table_data1"></webSocket>
-    <webSocket :wsInfo="table_data"></webSocket>
+    
+    <webSocket :wsInfo="table_data" sendInfo="alarm"></webSocket>
+    <webSocket :wsInfo="table_data1" sendInfo="sysinfo"></webSocket>
   </div>
 </template>
 <script>
@@ -105,7 +106,7 @@ export default {
         // });
 
         this.date=new Date();
-        this.fDate=this.$tool.formatDate(this.date);
+        this.fDate=this.$tool.Format('yyyy年MM月dd日');
         API.getTest({name:"123"}).then(res=> {
             console.log(res)
             if(res.code==200) {

@@ -9,7 +9,7 @@
       <img alt="Vue logo" src="../assets/images/logo.png">
       <img alt="Vue logo" :src="'static/images/logo.png'">
     -->
-    <img alt="Vue logo" :src="require('../assets/images/'+$theme+'/logo.png')">
+    <img alt="Vue logo" :src="require('../assets/images/'+$theme+'/logo.png')" v-if="$theme">
     
     <NavInfo></NavInfo>
     <HelloWorld msg="Welcome to Your Vue.js App"/>

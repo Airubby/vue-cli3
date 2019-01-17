@@ -14,7 +14,7 @@ import 'swiper/dist/css/swiper.css'
 import './utils/elDialogdrag'  //element弹窗拖拽
 import './utils/filters' // 自定义过滤器
 import tool from './utils/tool'  //工具函数
-
+// import 'promise-polyfill'  //兼容低版本浏览器
 import './assets/js/index.js'
 
 

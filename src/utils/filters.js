@@ -19,6 +19,10 @@ const SEX_MAP = {
   1: '男',
   2: '女'
 }
+const CLASS_MAP = {
+  1: 'testOne',
+  2: 'testTwo'
+}
 
  // 为空时的默认处理
 Vue.filter('empty', function(s, v) {
@@ -35,4 +39,9 @@ Vue.filter('sexFilter', function(s) {
   if (!s) return ''
   let n = parseInt(s);
   return SEX_MAP[n];
+})
+Vue.filter('showClass', function(s) {
+  if (!s) return ''
+  let n = parseInt(s);
+  return CLASS_MAP[n];
 })

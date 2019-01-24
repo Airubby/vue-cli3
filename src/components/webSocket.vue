@@ -9,7 +9,7 @@ export default {
         
     },
     mounted() {
-        // let _this=this;
+        // let _this=this;  // 监听的话，刷新就没法send数据了
         // this.$ws.addEventListener('open', function (event) {
         //     //_this.$ws.send(_this.sendInfo)
         // });
@@ -26,6 +26,11 @@ export default {
         //         }
         //     }
         // };
+
+        if(this.sendInfo){
+            this.send();
+        }
+
     },
     computed:{
     //   ...mapGetters({
@@ -42,13 +47,23 @@ export default {
        }
     },
     methods:{
-       
+       send:function(){
+            let _this=this;
+            if(this.$ws.readyState==1){
+                console.log(JSON.stringify(this.sendInfo))
+                this.$ws.send(JSON.stringify(this.sendInfo))
+            }else{
+                setTimeout(function(){
+                    _this.send();
+                },500)
+            }
+            
+        }
     },
     watch:{
-        //发送信息给服务端
         sendInfo:function(val){
-            if(val&&this.$ws.readyState==1){
-                this.$ws.send(val)
+            if(val){
+                this.send();
             }
         },
         getWSData: function(val) { 

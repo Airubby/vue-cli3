@@ -5,7 +5,8 @@
       <span @click="reloadPage"><router-link to="/about">About</router-link></span> | 
       <router-link to="/test">Test</router-link>
     </div>
-    <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
+    <div style="width: 100%; height:calc(100% - 80px)">
+    <el-scrollbar style='height:100%;' class="scrollbar">
         <div class="about" style="padding-bottom:300px;">
             <!--
                 <img alt="Vue logo" src="~@/assets/images/logo.png">
@@ -16,12 +17,15 @@
             <hr>
             <el-search-table-pagination  type="local"
                 url=""
+                ref="multipleTable"
                 list-field="list" 
                 total-field="total"
                 method='post' 
+                @selection-change="handleSelectionChange"
+                @resultData="resultData1"
                 :showIndex="true"
                 :page-sizes="[2,20,30]"
-                border :data="table_data1" :columns="table_columns" ref="thisRef">   
+                border :data="table_data1" :columns="table_columns">   
                 <el-table-column slot="prepend" type="selection"></el-table-column>
                 
                 <template slot-scope="scope" slot="preview-handle">
@@ -43,7 +47,7 @@
                 </template>
             </el-search-table-pagination>
             <hr>
-            <div>{{ emptyTitle|empty('如果emptyTitle为空就显示这个') }}</div>
+            <div :class="sex|showClass">{{ emptyTitle|empty('如果emptyTitle为空就显示这个,根据sex为不同给定不同的class样式') }}</div>
             <hr>
             {{sex|sexFilter}}----------------------------后台传入的是 1 表示男
             <hr>
@@ -57,9 +61,19 @@
             <el-button @click="clickbtn" size="small">禁用</el-button>
             <hr>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="端口" prop="port">
-                    <el-input v-model="ruleForm.port"></el-input>
-                </el-form-item>
+                
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <el-form-item label="user" prop="user">
+                            <el-input v-model="ruleForm.user"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="端口" prop="port">
+                            <el-input v-model="ruleForm.port"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
             </el-form>
             <hr>
             <div id="swiper-container" class="swiper-container">
@@ -83,7 +97,7 @@
 
         </div>
     </el-scrollbar>
-    
+    </div>
     <webSocket :wsInfo="table_data" sendInfo="alarm"></webSocket>
     <webSocket :wsInfo="table_data1" sendInfo="sysinfo"></webSocket>
   </div>
@@ -111,6 +125,7 @@ export default {
             console.log(res)
             if(res.code==200) {
                 this.table_data1=res.data;
+                this.finish=true;
             }else{
                 this.$message.warning(res.msg);
             }
@@ -142,6 +157,24 @@ export default {
         })
     },
     data() {
+        let checkuser=(rules,value,callback)=>{
+            if (value === '') {
+                callback(new Error('请输入账号'));
+            } else {
+                if(this.ruleForm.id==""){
+                    this.$api.get('/checkuser', {"user":value}, r => {
+                        console.log(r)
+                        if(r.err_code){
+                            callback();
+                        }else{
+                            callback(r.err_msg);
+                        }
+                    });
+                }else{
+                    callback();
+                }
+            }
+        };
         let checkport=(rules,value,callback)=>{//转换函数，主要目的是传给store内方法的参数。
             this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkPORT是写在store中的checkPORT，vuex规定参数必须传对象。
         };
@@ -173,20 +206,31 @@ export default {
             correct:true,
             disabled:false,
             ruleForm:{
+                id:'1',
+                user:'',
                 port:'',
             },
             rules:{
-                port:[{required:true,trigger:'blur',validator:checkport}]
-            }
-
+                user:[{ required: true,  trigger: 'change',validator:checkuser }],
+                port:[{required:true,trigger:'change',validator:checkport}]
+            },
+            multipleSelection:[],  //table勾选的
+            finish:false,//  判断table是否获取成功，监听成功了设置初始化需要勾选的
 
        }
     },
     methods:{
-       clickbtn:function(){
-           this.disabled=true;
-       },
-       postFn:function(){
+        handleSelectionChange:function(val){
+            console.log(val)
+            this.multipleSelection=[];
+            for(let i=0;i<val.length;i++){
+                this.multipleSelection.push(val[i].id);
+            }
+        },
+        clickbtn:function(){
+            this.disabled=true;
+        },
+        postFn:function(){
             API.postTest({name:'test',value:'342'}).then(res=> {
                 console.log(res)
                 if(res.code==200) {
@@ -195,17 +239,46 @@ export default {
                     this.$message.warning("错误");
                 }
             })
-       },
-       reloadPage:function(){
-           this.reload();
-       },
-       resultData:function(value){
-           console.log(value)
-           this.table_data=value.data;
-       },
+        },
+        reloadPage:function(){
+            this.reload();
+        },
+        resultData:function(value){
+            console.log(value)
+            this.table_data=value.data;
+            let arr=['2','3']; //需要勾选的
+            this.$nextTick(function(){
+                for(let i=0;i<this.table_data.length;i++){
+                    if(arr.toString().indexOf(this.table_data[i].id)!= -1){
+                        this.$refs.thisRef.$refs.table.toggleRowSelection(this.table_data[i],true); 
+                    }
+                }
+            })
+        },
+        resultData1:function(value){
+            console.log(value)
+            let arr=['2','3']; //需要勾选的
+            this.$nextTick(function(){
+                for(let i=0;i<this.table_data1.length;i++){
+                    if(arr.toString().indexOf(this.table_data1[i].id)!= -1){
+                        this.$refs.multipleTable.$refs.table.toggleRowSelection(this.table_data1[i],true); //封装后~~
+                    }
+                }
+            })
+        },
     },
     watch:{
-
+        finish:function(val){
+            let arr=['2','3']; //需要勾选的
+            this.$nextTick(function(){
+                for(let i=0;i<this.table_data1.length;i++){
+                    if(arr.toString().indexOf(this.table_data1[i].id)!= -1){
+                        //this.$refs.multipleTable.toggleRowSelection(this.table_data1[i],true); //原生element-table
+                        this.$refs.multipleTable.$refs.table.toggleRowSelection(this.table_data1[i],true); //封装后~~
+                    }
+                }
+            })
+        }
     },
     components:{webSocket}
 }

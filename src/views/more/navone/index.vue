@@ -17,24 +17,21 @@
     </el-upload>
     <hr>
     <h2>滚动展示</h2>
-    <el-scrollbar style="height:300px;" class="scrollbar">
+    <div style="height:150px;width:100%;">
+    <el-scrollbar style="height:100%;" class="scrollbar">
       <div class="scrollbarbox">
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
-        <p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
+        <p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p><p>滚动到div底部请求加载更多数据</p>
       </div>
     </el-scrollbar>
+    </div>
     <hr>
-    <div id="test" @click="enterTo">test</div>
+    <div id="test" @click="enterTo" ref="test" :class="{'testOne':true}">test</div>
     <hr>
     
   </div>
@@ -51,19 +48,22 @@ export default {
       let viewH=scrollbar.offsetHeight;
       let contentH=_this.$el.querySelector(".scrollbarbox").offsetHeight;
       let scrollTop=scrollbar.scrollTop;
-      if((scrollTop + viewH) - 32 >= contentH){  //el-scrollbar组件有32的误差 ，有的却不存在这个误差~~~~
+      if((scrollTop + viewH) >= contentH){  
           _this.$message.success('请求分页加载更多数据了~~~');
       }
     }
-    this.$el.querySelector("#test").innerHTML="this.$el.querySelector()设置dom；点击跳转传参数"
+    this.$el.querySelector("#test").innerHTML="this.$el.querySelector('#test')/this.$refs.test设置dom；点击跳转传参数"
     this.$el.querySelector("#test").classList.add("test1")
-    this.$el.querySelector("#test").style.lineHeight="60px";
+    this.$refs.test.style.lineHeight="60px";
     this.$el.querySelector("#test").style.textAlign="center";
     console.log(this.$el.querySelector("#test").offsetWidth)
     console.log(this.$el.querySelector("#test").offsetHeight)
+    console.log(this.$el.querySelectorAll('.test').length)
+    console.log(this.$el.classList.contains('test'))
   },
   data(){
       return{
+        className:'1',
         xmlurl:'',
         xmlshow:false,
         fileList:[],
@@ -113,5 +113,5 @@ export default {
 }
 </script>
 <style scoped>
-  
+  p{margin:0;}
 </style>

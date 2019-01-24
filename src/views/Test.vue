@@ -6,7 +6,7 @@
       <router-link to="/test">Test</router-link> | 
       <router-link to="/more">More</router-link>
     </div>
-    <el-scrollbar style="height:calc(100% - 80px);" class="loncom_scrollbar">
+    <el-scrollbar style="height:calc(100% - 80px);" class="scrollbar">
         <div class="about" style="padding-bottom:300px;">
             <div class="img"></div>
             <nav-info></nav-info>

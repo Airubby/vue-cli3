@@ -5,7 +5,19 @@ export default {
         Test: 'Test'
     },
     skin: {
-      Black: 'Black',
-      Default: 'Default'
+      Black: 'Black Skin',
+      Default: 'White Skin'
     },
+    layer:{
+      tips:'Tips',
+      sure:'Determine test',
+    },
+    button:{
+      ok:'OK',
+      cancel:'Cancel'
+    },
+    message:{
+      changeSkin:'Change Skin',
+      testLang:'Test i18n'
+    }
   }

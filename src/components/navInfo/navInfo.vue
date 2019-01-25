@@ -1,13 +1,13 @@
 <template>
     <div class="loncom_content">
-        风格切换：
+        {{$t("message.changeSkin")}}
         <el-switch
         style="display: block"
         v-model="value"
         active-color="#13ce66"
         inactive-color="#ff4949"
-        active-text="酷黑风格"
-        inactive-text="亮白风格">
+        :active-text="$t('skin.Black')"
+        :inactive-text="$t('skin.Default')">
         </el-switch>
     </div>
 </template>

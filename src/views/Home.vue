@@ -17,6 +17,8 @@
       <el-radio label="zh" border>简体中文</el-radio>
       <el-radio label="en" border>English</el-radio>
     </el-radio-group>
+    <hr>
+    <el-button type="primary" @click="testLang">{{$t("message.testLang")}}</el-button>
   </div>
 </template>
 
@@ -31,12 +33,33 @@ export default {
       data:this.data
     }
   },
+  computed: {
+    lang: {
+      get() {
+        return this.$store.state.app.language
+      },
+      set(lang) {
+        this.$i18n.locale = lang
+        this.$store.dispatch('setLanguage', lang)
+      }
+    }
+  },
   data(){
       return{
         data:'13',
-        lang:'zh'
       }
     },
+  methods: {
+    testLang:function(){
+      this.$confirm(this.$t('layer.sure'), this.$t('layer.tips'), {
+          confirmButtonText: this.$t('button.ok'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning'
+      }).then(() => {
+          this.$message.success(this.$t('button.ok'));
+      });
+    },
+  },
   components: {
     HelloWorld
   }

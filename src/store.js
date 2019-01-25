@@ -46,14 +46,14 @@ export default new Vuex.Store({
        getNavInfo(state){
            return state.navList;
        },
-       //getNavInfo: state => state.navList,           ???state.app.navList
+       //getNavInfo: state => state.navList,           
        AjaxUrl(state){
             return state.AjaxUrl;
        },
        getWSData(state){
             return state.wsData;
         },
-       token(state){
+        token(state){
             return state.token;
         },
         getTheme(state){
@@ -78,95 +78,104 @@ export default new Vuex.Store({
         },
         
    },
-   actions:{
-        checkPORT({ commit }, obj) {//这个obj就是需要的参数，这个blur事件经过validator包装后的参数。随后的就跟官网上的一样了，随意写。
-            console.log(obj);
-            if (!obj.value) {
-                if(obj.rules.required){
-                    obj.callback(new Error('不能为空'))
-                }else{
-                    obj.callback()
-                }
-            } else if (Math.round(Number(obj.value)) !== Number(obj.value)) {
-                obj.callback(new Error('必须为整数数字'))
-            } else {
-                if(Number(obj.value)>65535||Number(obj.value)<1){
-                    obj.callback("端口范围在1-65535之间")
-                }else{
-                    obj.callback()
-                }
-            }
-            commit('theFn')
+    actions:{
+        setAjaxUrl({commit},ajaxUrl){
+            commit('setAjaxUrl',ajaxUrl)
         },
-        checkIP({ commit }, obj) {
-            if (!obj.value) {
-                if(obj.rules.required){
-                    obj.callback(new Error('不能为空'))
-                }else{
-                    obj.callback()
-                }
-            } else {
-              var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
-                if(reg.test(obj.value)){
-                    obj.callback()
-                }else{
-                    obj.callback("ip格式错误")
-                }
-            }
-            commit('theFn')
+        setwsData({commit},wsData){
+            commit('setwsData',wsData)
         },
-        checkEMAIL({ commit }, obj) {
-            if (!obj.value) {
-                if(obj.rules.required){
-                    obj.callback(new Error('不能为空'))
-                }else{
-                    obj.callback()
-                }
-            } else {
-              var reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-                if(reg.test(obj.value)){
-                    obj.callback()
-                }else{
-                    obj.callback("邮箱格式错误")
-                }
-            }
-            commit('theFn')
+        setTheme({commit},themeName){
+            commit('setTheme',themeName)
         },
-        checkPHONE({ commit }, obj) {
-            if (!obj.value) {
-                if(obj.rules.required){
-                    obj.callback(new Error('不能为空'))
-                }else{
-                    obj.callback()
-                }
-            } else {
-              var reg = /^1[345789]\d{9}$/
-                if(reg.test(obj.value)){
-                    obj.callback()
-                }else{
-                    obj.callback("手机格式错误")
-                }
-            }
-            commit('theFn')
-        },
-        checkNumber({ commit }, obj) {
-            if (!obj.value) {
-                if(obj.rules.required){
-                    obj.callback(new Error('不能为空'))
-                }else{
-                    obj.callback()
-                }
-            } else {
-                let regPos = /^\d+(\.\d+)?$/; //非负浮点数
-                //let regPos = /^([1-9]+)$/;  //大于0的正整数
-                // let regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-                if(regPos.test(obj.value)){
-                    obj.callback()
-                }else{
-                    obj.callback('请输入正数数值')
-                }
-            }
-            commit('theFn')
-        },
+        // checkPORT({ commit }, obj) {//这个obj就是需要的参数，这个blur事件经过validator包装后的参数。随后的就跟官网上的一样了，随意写。
+        //     console.log(obj);
+        //     if (!obj.value) {
+        //         if(obj.rules.required){
+        //             obj.callback(new Error('不能为空'))
+        //         }else{
+        //             obj.callback()
+        //         }
+        //     } else if (Math.round(Number(obj.value)) !== Number(obj.value)) {
+        //         obj.callback(new Error('必须为整数数字'))
+        //     } else {
+        //         if(Number(obj.value)>65535||Number(obj.value)<1){
+        //             obj.callback("端口范围在1-65535之间")
+        //         }else{
+        //             obj.callback()
+        //         }
+        //     }
+        //     commit('theFn')
+        // },
+        // checkIP({ commit }, obj) {
+        //     if (!obj.value) {
+        //         if(obj.rules.required){
+        //             obj.callback(new Error('不能为空'))
+        //         }else{
+        //             obj.callback()
+        //         }
+        //     } else {
+        //       var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+        //         if(reg.test(obj.value)){
+        //             obj.callback()
+        //         }else{
+        //             obj.callback("ip格式错误")
+        //         }
+        //     }
+        //     commit('theFn')
+        // },
+        // checkEMAIL({ commit }, obj) {
+        //     if (!obj.value) {
+        //         if(obj.rules.required){
+        //             obj.callback(new Error('不能为空'))
+        //         }else{
+        //             obj.callback()
+        //         }
+        //     } else {
+        //       var reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        //         if(reg.test(obj.value)){
+        //             obj.callback()
+        //         }else{
+        //             obj.callback("邮箱格式错误")
+        //         }
+        //     }
+        //     commit('theFn')
+        // },
+        // checkPHONE({ commit }, obj) {
+        //     if (!obj.value) {
+        //         if(obj.rules.required){
+        //             obj.callback(new Error('不能为空'))
+        //         }else{
+        //             obj.callback()
+        //         }
+        //     } else {
+        //       var reg = /^1[345789]\d{9}$/
+        //         if(reg.test(obj.value)){
+        //             obj.callback()
+        //         }else{
+        //             obj.callback("手机格式错误")
+        //         }
+        //     }
+        //     commit('theFn')
+        // },
+        // checkNumber({ commit }, obj) {
+        //     if (!obj.value) {
+        //         if(obj.rules.required){
+        //             obj.callback(new Error('不能为空'))
+        //         }else{
+        //             obj.callback()
+        //         }
+        //     } else {
+        //         let regPos = /^\d+(\.\d+)?$/; //非负浮点数
+        //         //let regPos = /^([1-9]+)$/;  //大于0的正整数
+        //         // let regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+        //         if(regPos.test(obj.value)){
+        //             obj.callback()
+        //         }else{
+        //             obj.callback('请输入正数数值')
+        //         }
+        //     }
+        //     commit('theFn')
+        // },
    },
 })

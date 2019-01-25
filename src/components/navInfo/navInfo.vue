@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import store from '@/store'
+// import store from '@/store'
+import store from '@/store/index'
 export default {
     name: 'NavInfo',
     created () {
@@ -41,8 +42,10 @@ export default {
     watch:{
         value:function(val){
             if(val){
-                store.commit('setTheme','black');
+                store.dispatch('setTheme','black');
+                // store.commit('setTheme','black');
             }else{
+                // store.dispatch('setTheme','default');
                 store.commit('setTheme','default');
             }
         }

@@ -4,7 +4,8 @@ import Qs from 'qs'
 import { Message } from 'element-ui'
 import router from './router'
 // import $AjaxUrl from './utils/ajaxUrl'
-import store from '@/store'
+// import store from '@/store'
+import store from '@/store/index'
 
 // 自定义判断元素类型JS
 function toType (obj) {

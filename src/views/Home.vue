@@ -1,9 +1,9 @@
 <template>
   <div class="home content">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> | 
-      <router-link to="/test">Test</router-link>
+      <router-link to="/">{{$t("navbar.Home")}}</router-link> |
+      <router-link to="/about">{{$t("navbar.About")}}</router-link> | 
+      <router-link to="/test">{{$t("navbar.Test")}}</router-link>
     </div>
     <!--
       <img alt="Vue logo" src="../assets/images/logo.png">
@@ -12,7 +12,11 @@
     <img alt="Vue logo" :src="require('../assets/images/'+$theme+'/logo.png')" v-if="$theme">
     
     <NavInfo></NavInfo>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <hr>
+    <el-radio-group v-model="lang" size="small">
+      <el-radio label="zh" border>简体中文</el-radio>
+      <el-radio label="en" border>English</el-radio>
+    </el-radio-group>
   </div>
 </template>
 
@@ -30,6 +34,7 @@ export default {
   data(){
       return{
         data:'13',
+        lang:'zh'
       }
     },
   components: {

@@ -2,7 +2,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+// import store from './store' //用分离的store
+import store from './store/index'
 import axios from 'axios'
 import api from './api' //用request，为每个模块的调用写一个js
 import ElementUI from 'element-ui'
@@ -15,6 +16,11 @@ import './utils/elDialogdrag'  //element弹窗拖拽
 import './utils/filters' // 自定义过滤器
 import tool from './utils/tool'  //工具函数
 // import 'promise-polyfill'  //兼容低版本浏览器
+import i18n from './lang'
+
+
+
+
 import './assets/js/index.js'
 
 
@@ -33,7 +39,10 @@ Vue.prototype.$Swiper = Swiper
 // Vue.prototype.$echarts = echarts 
 
 //store.commit('resetNavList',menu)     
-Vue.use(ElementUI)
+Vue.use(ElementUI,{
+  size: 'small', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
+})
 Vue.use(ElSearchTablePagination)
 Vue.use(NavInfo)
 
@@ -45,7 +54,8 @@ function getServerConfig () {
       let config = result.data;
       let ajaxUrl = process.env.NODE_ENV == 'production' ? config.production:config.develop;
       Vue.prototype.$ajaxUrl=ajaxUrl;
-      store.commit('setAjaxUrl',ajaxUrl);
+      // store.commit('setAjaxUrl',ajaxUrl);
+      store.dispatch('setAjaxUrl',ajaxUrl);
       Vue.prototype.$theme = config.theme || 'default';
       // initTheme(Vue.prototype.$theme)
       resolve();
@@ -67,6 +77,7 @@ async function init() {
   new Vue({
     router,
     store,
+    i18n,
     render: h => h(App),
   }).$mount('#app')
 }

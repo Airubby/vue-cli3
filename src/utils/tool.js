@@ -72,4 +72,92 @@ function wsConnection(sendMsg, callback) {
       console.log(ex);
   }
 }
-export default {arrayContains,Format,echartfn,wsConnection}
+function checkPORT(obj) {
+    console.log(obj);
+    if (!obj.value) {
+        if(obj.rules.required){
+            obj.callback(new Error('不能为空'))
+        }else{
+            obj.callback()
+        }
+    } else if (Math.round(Number(obj.value)) !== Number(obj.value)) {
+        obj.callback(new Error('必须为整数数字'))
+    } else {
+        if(Number(obj.value)>65535||Number(obj.value)<1){
+            obj.callback("端口范围在1-65535之间")
+        }else{
+            obj.callback()
+        }
+    }
+}
+function checkIP(obj) {
+    if (!obj.value) {
+        if(obj.rules.required){
+            obj.callback(new Error('不能为空'))
+        }else{
+            obj.callback()
+        }
+    } else {
+      var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+        if(reg.test(obj.value)){
+            obj.callback()
+        }else{
+            obj.callback("ip格式错误")
+        }
+    }
+    
+}
+function checkEMAIL(obj) {
+    if (!obj.value) {
+        if(obj.rules.required){
+            obj.callback(new Error('不能为空'))
+        }else{
+            obj.callback()
+        }
+    } else {
+      var reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if(reg.test(obj.value)){
+            obj.callback()
+        }else{
+            obj.callback("邮箱格式错误")
+        }
+    }
+    
+}
+function checkPHONE(obj) {
+    if (!obj.value) {
+        if(obj.rules.required){
+            obj.callback(new Error('不能为空'))
+        }else{
+            obj.callback()
+        }
+    } else {
+      var reg = /^1[345789]\d{9}$/
+        if(reg.test(obj.value)){
+            obj.callback()
+        }else{
+            obj.callback("手机格式错误")
+        }
+    }
+    
+}
+function checkNumber(obj) {
+    if (!obj.value) {
+        if(obj.rules.required){
+            obj.callback(new Error('不能为空'))
+        }else{
+            obj.callback()
+        }
+    } else {
+        let regPos = /^\d+(\.\d+)?$/; //非负浮点数
+        //let regPos = /^([1-9]+)$/;  //大于0的正整数
+        // let regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+        if(regPos.test(obj.value)){
+            obj.callback()
+        }else{
+            obj.callback('请输入正数数值')
+        }
+    }
+    
+}
+export default {arrayContains,Format,echartfn,wsConnection,checkPORT,checkIP,checkEMAIL,checkPHONE,checkNumber}

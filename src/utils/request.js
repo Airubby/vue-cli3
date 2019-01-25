@@ -1,7 +1,8 @@
 import axios from "axios";
 import Qs from "querystring";
 import { Message } from 'element-ui'
-import store from '@/store'
+// import store from '@/store'
+import store from '@/store/index'
 // import $AjaxUrl from './ajaxUrl'
 let service = axios.create({
   // baseURL: 'http://www.javasoft.top:9090/service',

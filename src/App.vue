@@ -4,7 +4,8 @@
   </div>
 </template>
 <script>
-import store from './store'
+// import store from './store'
+import store from './store/index'
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 // const _import = file => () => require('@/assets/css/' + file + '/index.less')
@@ -31,7 +32,8 @@ import { mapGetters } from 'vuex'
         this.switchTheme(this.$theme)
         this.$tool.wsConnection("",function(result){
           console.log(result)
-          store.commit('setwsData',eval(result.data));
+          // store.commit('setwsData',eval(result.data));
+          store.dispatch('setwsData',eval(result.data));
         })
 
     },

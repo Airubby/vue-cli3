@@ -16,11 +16,9 @@
             <nav-info></nav-info>
             <hr>
             <el-search-table-pagination  type="local"
-                url=""
                 ref="multipleTable"
                 list-field="list" 
                 total-field="total"
-                method='post' 
                 @selection-change="handleSelectionChange"
                 @resultData="resultData1"
                 :showIndex="true"
@@ -39,6 +37,7 @@
                 total-field="total"
                 :page-sizes="[2,20,30]"
                 method='get' 
+                :showPagination="false"
                 border :webSocketInfo="table_data" @resultData="resultData" :columns="table_columns" ref="thisRef">   
                 <el-table-column slot="prepend" type="selection"></el-table-column>
                 <el-table-column slot="prepend" type="index" label="序号"></el-table-column>
@@ -175,8 +174,11 @@ export default {
                 }
             }
         };
-        let checkport=(rules,value,callback)=>{//转换函数，主要目的是传给store内方法的参数。
-            this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkPORT是写在store中的checkPORT，vuex规定参数必须传对象。
+        // let checkport=(rules,value,callback)=>{//转换函数，主要目的是传给store内方法的参数。
+        //     this.$store.dispatch('checkPORT',{rules,value,callback})//这儿的checkPORT是写在store中的checkPORT，vuex规定参数必须传对象。
+        // };
+        let checkport=(rules,value,callback)=>{
+            this.$tool.checkPORT({rules,value,callback})
         };
         return {
             imgurl:'assets/images/logo.png',

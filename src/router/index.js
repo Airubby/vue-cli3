@@ -39,11 +39,13 @@ export const asyncRouter=[
       {
         path:'/more/navone',
         name:'菜单一',
+        meta: { title: '菜单一'},
         component: () => import('@/views/more/navone/index.vue'),
       },
       {
         path:'/more/navtwo',
         name:'菜单二',
+        meta: { title: '菜单二'},
         component: () => import('@/views/more/navtwo/index.vue'),
       }
     ]

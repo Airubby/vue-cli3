@@ -8,6 +8,14 @@ function filterAsyncRouter(asyncRouter, roles) {
   asyncRouter.map((item)=>{
     roles.forEach((inItem)=>{
       if(item.path==inItem.path){
+        if(item.redirect){
+          for(let i=0;i<inItem.children.length;i++){
+            if(inItem.children[i].meta.show){
+              item.redirect=inItem.children[i].path;
+              break;
+            }
+          }
+        }
         if(item.children&&inItem.children){
           item.children=filterAsyncRouter(item.children,inItem.children)
         }
@@ -22,7 +30,8 @@ const user = {
   state: {
     token:'',
     routers: syncRouter,
-    addRouters: []
+    addRouters: [],
+    limits:[],
   },
   mutations: {
     setToken(state,token){
@@ -37,16 +46,25 @@ const user = {
       router.addRoutes(theAsyncRouter);
       state.routers = syncRouter;
       console.log(state.routers)
+    },
+    setLimits(state,data){
+      state.limits=data;
     }
+    
   },
   actions: {
     setToken({ commit }, token) {
       commit('setToken', token)
     },
+    //设置获取的权限信息
     setAuthInfo({commit},data){
       console.log(data)
       let theAsyncRouter = filterAsyncRouter(asyncRouter,data)
       commit('setAuthInfo',theAsyncRouter)
+    },
+    //设置功能权限
+    setLimits({commit},data){
+      commit('setLimits',data);
     }
 
   }

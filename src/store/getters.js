@@ -5,6 +5,7 @@ const getters = {
   
   token: state => state.user.token,
   addRouters: state => state.user.addRouters,
+  limits:state=>state.user.limits,
   
   getTheme: state => state.theme.theme,
 }

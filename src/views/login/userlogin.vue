@@ -67,9 +67,7 @@ export default {
         console.log(res)
         if(res.code==200){
           store.dispatch('setAuthInfo',res.data);
-          let _this=this;
           this.$router.push({ path: '/' })
-          
         }else{
           this.$message.warning('权限获取失败');
         }

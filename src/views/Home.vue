@@ -18,7 +18,8 @@
       <el-radio label="en" border>English</el-radio>
     </el-radio-group>
     <hr>
-    <el-button type="primary" @click="testLang">{{$t("message.testLang")}}</el-button>
+    <!--后台返回了test权限，如果绑定其它的后台没有返回的就没有权限-->
+    <el-button type="primary" @click="testLang" v-permission="'test'">{{$t("message.testLang")}}</el-button>
   </div>
 </template>
 

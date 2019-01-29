@@ -12,6 +12,9 @@ router.beforeEach((to, from, next) => {
         console.log(to.meta)
         if(JSON.stringify(to.meta)!="{}"){
             if(to.meta.show){
+                if(to.meta.limits&&to.meta.limits.length>0){
+                    store.dispatch('setLimits',to.meta.limits);
+                }
                 next()
                 NProgress.done()    
             }else{

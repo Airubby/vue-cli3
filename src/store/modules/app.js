@@ -13,6 +13,7 @@ const app = {
     },
     setAjaxUrl(state,ajaxUrl){
         state.AjaxUrl=ajaxUrl;
+        Cookies.set('AjaxUrl', ajaxUrl)
     },
     // 中英文
     SET_LANGUAGE: (state, language) => {

@@ -37,6 +37,8 @@
                 total-field="total"
                 :page-sizes="[2,20,30]"
                 method='get' 
+                :params="table_forms.initParams"
+                :formOptions="table_forms"
                 :showPagination="false"
                 border :webSocketInfo="table_data" @resultData="resultData" :columns="table_columns" ref="thisRef">   
                 <el-table-column slot="prepend" type="selection"></el-table-column>
@@ -188,6 +190,7 @@ export default {
             table_forms: {
                 inline: true,
                 size:'small',
+                initParams:{alarmlevel:"",vague:''},
                 forms: [
                     // { prop: 'fname', label: '',placeholder:'名称' },
                 ]

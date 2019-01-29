@@ -2,7 +2,6 @@ import Cookies from 'js-cookie'
 
 const app = {
   state: {
-    token:'88888888',
     wsData:{},
     AjaxUrl:'',
     // 中英文

@@ -1,7 +1,7 @@
 // const _import = file => () => import('./assets/css/' + file + '/index.css')
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import {router} from './router/index'
 // import store from './store' //用分离的store
 import store from './store/index'
 import axios from 'axios'
@@ -19,7 +19,7 @@ import tool from './utils/tool'  //工具函数
 import i18n from './lang'
 
 
-
+import '@/permission' 
 
 import './assets/js/index.js'
 

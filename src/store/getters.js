@@ -1,8 +1,10 @@
 const getters = {
   language: state => state.app.language,
-  token: state => state.app.token,
   getWSData: state => state.app.wsData,
   AjaxUrl: state => state.app.AjaxUrl,
+  
+  token: state => state.user.token,
+  addRouters: state => state.user.addRouters,
   
   getTheme: state => state.theme.theme,
 }

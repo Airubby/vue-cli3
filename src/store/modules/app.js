@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 const app = {
   state: {
     wsData:{},
-    AjaxUrl:'',
+    AjaxUrl:Cookies.get('AjaxUrl')||'',
     // 中英文
     language: Cookies.get('language') || 'zh',
   },

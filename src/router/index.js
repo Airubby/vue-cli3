@@ -8,7 +8,9 @@ export const syncRouter=[
     name: 'login',
     meta: { title: '系统登录'},
     component: () => import('@/views/login/index.vue')
-  }
+  },
+  { path: '/404',meta: { title: '404'}, component: () => import('@/views/errorPage/404') },
+  { path: '/401',meta: { title: '401'}, component: () => import('@/views/errorPage/401') },
 ];
 
 export const asyncRouter=[

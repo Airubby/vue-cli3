@@ -21,6 +21,7 @@
 <script>
 import * as API from '@/api/login'
 import store from '@/store/index'
+import axios from "axios";
 export default {
   name: 'userlogin',
   data() {
@@ -50,6 +51,7 @@ export default {
       this.passwordType === ''? (this.passwordType = 'password'): (this.passwordType = '')
     },
     handleLogin() {
+      axios.defaults.baseURL = store.getters.AjaxUrl;  //初始化的时候还没获取到打包外的配置文件的
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           API.login(this.loginForm).then(res => {

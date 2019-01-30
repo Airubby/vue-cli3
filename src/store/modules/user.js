@@ -1,4 +1,5 @@
 import {syncRouter, asyncRouter,router } from '@/router/index'
+import Cookies from 'js-cookie'
 /**
  * 递归过滤异步路由表，返回符合用户角色权限的路由表
  * @param asyncRouterMap
@@ -28,7 +29,7 @@ function filterAsyncRouter(asyncRouter, roles) {
 
 const user = {
   state: {
-    token:'',
+    token:Cookies.get('token')||'',
     routers: syncRouter,
     addRouters: [],
     limits:[],
@@ -36,16 +37,15 @@ const user = {
   mutations: {
     setToken(state,token){
       state.token=token;
+      Cookies.set('token', token)
     },
-    setAuthInfo(state,theAsyncRouter){
+    setAuthInfo(state,data){
+      let theAsyncRouter = filterAsyncRouter(asyncRouter,data)
       state.addRouters = theAsyncRouter
       for(let i=0;i<theAsyncRouter.length;i++){
-        // syncRouter.push(theAsyncRouter[i]);
         router.options.routes.push(theAsyncRouter[i]);
       }
       router.addRoutes(theAsyncRouter);
-      state.routers = syncRouter;
-      console.log(state.routers)
     },
     setLimits(state,data){
       state.limits=data;
@@ -58,9 +58,7 @@ const user = {
     },
     //设置获取的权限信息
     setAuthInfo({commit},data){
-      console.log(data)
-      let theAsyncRouter = filterAsyncRouter(asyncRouter,data)
-      commit('setAuthInfo',theAsyncRouter)
+      commit('setAuthInfo',data)
     },
     //设置功能权限
     setLimits({commit},data){

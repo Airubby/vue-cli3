@@ -18,6 +18,7 @@ import tool from './utils/tool'  //工具函数
 // import 'promise-polyfill'  //兼容低版本浏览器   import 'babel-polyfill'
 import i18n from './lang'  //国际化
 import './utils/permission'  //功能权限指令
+import BaiduMap from 'vue-baidu-map'
 
 import './assets/js/index.js'
 import 'vue-transition.css'
@@ -43,6 +44,10 @@ Vue.use(ElementUI,{
 })
 Vue.use(ElSearchTablePagination)
 Vue.use(NavInfo)
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: 'fGPfT9cGkLHcbE4DpCGXuZzaDsnwfdLe'
+})
 
 Vue.config.productionTip = false
 

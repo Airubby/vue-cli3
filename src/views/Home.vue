@@ -5,6 +5,8 @@
       <router-link to="/about">{{$t("navbar.About")}}</router-link> | 
       <router-link to="/test">{{$t("navbar.Test")}}</router-link>
     </div>
+    <div style="width: 100%; height:calc(100% - 82px)">
+    <el-scrollbar style='height:100%;' class="scrollbar">
     <!--
       <img alt="Vue logo" src="../assets/images/logo.png">
       <img alt="Vue logo" :src="'static/images/logo.png'">
@@ -20,6 +22,20 @@
     <hr>
     <!--后台返回了test权限，如果绑定其它的后台没有返回的就没有权限-->
     <el-button type="primary" @click="testLang" v-permission="'test'">{{$t("message.testLang")}}</el-button>
+    <hr>
+    <el-radio-group v-model="mapType" style="margin:20px 0;">
+      <el-radio-button label="BMAP_NORMAL_MAP">街道地图</el-radio-button>
+      <el-radio-button label="BMAP_SATELLITE_MAP">卫星地图</el-radio-button>
+      <el-radio-button label="BMAP_HYBRID_MAP">混合地图</el-radio-button>
+    </el-radio-group>
+    <baidu-map style="width:100%;height: 500px;" 
+      :center="center" 
+      :zoom="zoom"
+      scroll-wheel-zoom
+      :map-type='mapType'
+      ></baidu-map>
+    </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -48,6 +64,9 @@ export default {
   data(){
       return{
         data:'13',
+        center:{lng: 116.404, lat: 39.915},
+        zoom:15,
+        mapType:'BMAP_SATELLITE_MAP' 
       }
     },
   methods: {

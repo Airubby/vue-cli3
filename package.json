@@ -16,6 +16,7 @@
     "nprogress": "^0.2.0",
     "swiper": "^4.4.6",
     "vue": "^2.5.17",
+    "vue-baidu-map": "^0.21.16",
     "vue-i18n": "^8.7.0",
     "vue-router": "^3.0.1",
     "vue-transition.css": "^1.0.2",

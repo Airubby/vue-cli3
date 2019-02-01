@@ -7,13 +7,24 @@ import Cookies from 'js-cookie'
 import * as API from '@/api/login'
 
 routerGo();
-
+function filterAsyncRouter(url, roles) {
+    roles.forEach(element => {
+        if(url==element.path){
+            store.dispatch('setLimits',element.meta.limits);
+            return;
+        }
+        if(element.children&&element.children.length>0){
+            filterAsyncRouter(url,element.children);
+        }
+    });
+  }
 function getInfo(){  //刷新页面重新获取权限
     return new Promise(function(resolve, reject){
         API.getInfo({"token":Cookies.get('token')}).then((res) => {
-        console.log(1)
         if(res.code==200){
             store.dispatch('setAuthInfo',res.data);
+            let url=window.document.URL.split("#")[1];
+            filterAsyncRouter(url,res.data)
         }else{
             Message.warning("权限获取失败");
         }

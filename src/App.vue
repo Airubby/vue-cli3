@@ -1,6 +1,8 @@
 <template>
   <div id="app" ref="app">
-    <router-view v-if="isRouterAlive"/>
+    <transition name="rotate-fall">
+      <router-view v-if="isRouterAlive"/>
+    </transition>
   </div>
 </template>
 <script>

@@ -62,7 +62,9 @@ async function routerGo(){
     
     })
     
-    router.afterEach(() => {
+    router.afterEach((to,from) => {
+        let title=to.meta.title?`${to.meta.title}`:'vue-cli3';
+        window.document.title = title;
         NProgress.done() // 结束Progress
     })
 }

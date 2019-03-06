@@ -64,6 +64,7 @@ async function routerGo(){
             }
             
         }else{
+            console.log()
             if (to.path!=="/"&&whiteList.indexOf(to.path) !== -1) {
                 next()
             } else {

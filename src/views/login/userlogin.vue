@@ -1,5 +1,5 @@
 <template>
-  <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
+  <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0" v-loading="loading">
     <el-form-item prop="username">
       <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名">
         <i slot="prefix" class="icon-yonghu"></i>
@@ -21,11 +21,13 @@
 <script>
 import * as API from '@/api/login'
 import store from '@/store/index'
-import axios from "axios";
 export default {
   name: 'userlogin',
+  inject:['reload'],
   data() {
     return {
+      loading:false,
+      token:'',
       loginForm: {
         username: 'admin',
         password: '123456'
@@ -51,29 +53,44 @@ export default {
       this.passwordType === ''? (this.passwordType = 'password'): (this.passwordType = '')
     },
     handleLogin() {
-      axios.defaults.baseURL = store.getters.AjaxUrl;  //初始化的时候还没获取到打包外的配置文件的
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          API.login(this.loginForm).then(res => {
-            console.log(res)
-            if(res.code==200){
-              store.dispatch('setToken',res.data.token);
-              this.getInfo(res.data.token);
-            }
-          })
+          this.login();
         }
       })
     },
-    getInfo:function(token){
-      API.getInfo({"token":token}).then(res => {
-        console.log(res)
-        if(res.code==200){
-          store.dispatch('setAuthInfo',res.data);
-          this.$router.push({ path: '/' })
-        }else{
-          this.$message.warning('权限获取失败');
-        }
+    getToken:function(){
+      return new Promise ((resolve, reject) => {
+        API.login(this.loginForm).then(res => {
+          if(res.code==200){
+            store.dispatch('setToken',res.data.token);
+            this.token=res.data.token;
+            resolve();
+          }
+        })
       })
+      
+    },
+    getInfo:function(){
+      return new Promise ((resolve, reject) => {
+        API.getInfo({"token":this.token}).then(res => {
+          console.log(res)
+          if(res.code==200){
+            store.dispatch('setAuthInfo',res.data);
+            this.$router.push({ path: '/' })
+          }else{
+            this.$message.warning('权限获取失败');
+          }
+          resolve();
+        })
+      })
+      
+    },
+    async login(){
+      this.loading=true;
+      await this.getToken();
+      await this.getInfo();
+      this.loading=false;
     },
 
   }

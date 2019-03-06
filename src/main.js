@@ -51,7 +51,7 @@ Vue.use(BaiduMap, {
 
 Vue.config.productionTip = false
 
-function getServerConfig () {
+function getServerConfig() {
   return new Promise ((resolve, reject) => {
     axios.get('./serverConfig.json').then((result) => {
       let config = result.data;
@@ -59,6 +59,7 @@ function getServerConfig () {
       Vue.prototype.$ajaxUrl=ajaxUrl;
       // store.commit('setAjaxUrl',ajaxUrl);
       store.dispatch('setAjaxUrl',ajaxUrl);
+      store.dispatch('setLoginUrl',config.loginBaseUrl);
       Vue.prototype.$theme = config.theme || 'default';
       // initTheme(Vue.prototype.$theme)
       resolve();

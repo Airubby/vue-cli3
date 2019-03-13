@@ -53,6 +53,7 @@ export default {
       }
     }
     this.$el.querySelector("#test").innerHTML="this.$el.querySelector('#test')/this.$refs.test设置dom；点击跳转传参数"
+    this.$el.querySelector("#test").setAttribute("class","test2")
     this.$el.querySelector("#test").classList.add("test1")
     this.$refs.test.style.lineHeight="60px";
     this.$el.querySelector("#test").style.textAlign="center";

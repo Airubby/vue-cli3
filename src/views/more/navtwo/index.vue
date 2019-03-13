@@ -19,8 +19,22 @@
           </el-tree>
       </el-option>
     </el-select>
-
-
+    <hr>
+    <h2>自定义滚动</h2>
+    <div style="width:650px;margin:0 auto;">
+        <el-search-table-pagination  type="local"
+          v-scrollBar="'table'"
+            border :data="table_data" :columns="table_columns">            
+        </el-search-table-pagination>
+        <div class="home" v-scrollBar>
+            <ul class="list">
+              <li>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</li>
+              <li>炫光舞法</li>
+              <!--想想这里有一堆li-->
+              <li>天舞台</li>
+            </ul>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -90,7 +104,29 @@ export default {
         info:{
           id:'',
           name:'',
-        }
+        },
+        table_data:[
+          {name:"发生的楼房十六分",content:"爱上了对方就是浪费",value:'123123123',
+          name1:"发生的楼房十六分",content1:"爱上了对方就是浪费",value1:'123123123',
+          name2:"发生的楼房十六分",content2:"爱上了对方就是浪费",value2:'123123123'},
+          {name:"发生的楼房十六分",content:"爱上了对方就是浪费",value:'123123123',
+          name1:"发生的楼房十六分",content1:"爱上了对方就是浪费",value1:'123123123',
+          name2:"发生的楼房十六分",content2:"爱上了对方就是浪费",value2:'123123123'},
+          {name:"发生的楼房十六分",content:"爱上了对方就是浪费",value:'123123123',
+          name1:"发生的楼房十六分",content1:"爱上了对方就是浪费",value1:'123123123',
+          name2:"发生的楼房十六分",content2:"爱上了对方就是浪费",value2:'123123123'},
+        ],
+        table_columns:[
+          { prop: 'name', label: '名称',width:"100px"},
+          { prop: 'content', label: '内容',width:"100px"},
+          { prop: 'value', label: '值',width:"100px"},
+          { prop: 'name1', label: '名称',width:"100px"},
+          { prop: 'content1', label: '内容',width:"100px"},
+          { prop: 'value1', label: '值',width:"100px"},
+          { prop: 'name2', label: '名称',width:"100px"},
+          { prop: 'content2', label: '内容',width:"100px"},
+          { prop: 'value2', label: '值',width:"100px"},
+        ],
       }
     },
     methods: {
@@ -126,5 +162,13 @@ export default {
   }
   .el-select-dropdown__item{
     height:auto;
+  }
+  .home{width:200px;height:50px;margin:0 auto;}
+  .list{
+          display: inline-flex;
+  }
+  .list li{
+    width: 80px;
+    float:left;
   }
 </style>

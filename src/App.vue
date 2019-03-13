@@ -53,6 +53,7 @@ import { mapGetters } from 'vuex'
       },
       switchTheme:function(themeName){
         this.$refs.app.className=themeName+"_theme";
+        document.body.className=themeName+"_theme";
         Vue.prototype.$theme=themeName;
         this.$nextTick(function(){
           this.reload();

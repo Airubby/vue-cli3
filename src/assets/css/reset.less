@@ -5,5 +5,12 @@
 .scrollbar .el-scrollbar__wrap { //给外层class不然element组件自己的会有问题比如下拉选项
     overflow-x: hidden !important;
 }
-
+//自定义滚动
+.el-table--scrollable-x .el-table__body-wrapper{
+    overflow: hidden !important;
+}
+.el-table__body-wrapper:hover > .ps__rail-x,
+.el-table__body-wrapper:hover > .ps__rail-y {
+  opacity: 0.6;
+}
 

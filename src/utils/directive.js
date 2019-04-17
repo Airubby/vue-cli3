@@ -112,6 +112,11 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
     .el-table__body-wrapper:hover > .ps__rail-y {
     opacity: 0.6;
     }
+    .el-table--scrollable-x .el-table__body-wrapper > .ps__rail-x,
+    .el-table--scrollable-y .el-table__body-wrapper > .ps__rail-y {
+        display: block !important;
+        background-color: transparent !important;
+    }
  * @param {HTMLElement} el - 必填。dom元素
  */
 const el_scrollBar = (el) => {
@@ -156,7 +161,6 @@ Vue.directive("scrollBar", {
     },
     //更新dom的时候
     componentUpdated(el, binding, vnode) {
-        debugger;
         const { value } = binding;
         if (value === "table") {
             el = el.querySelector(".el-table__body-wrapper");

@@ -6,11 +6,17 @@
     overflow-x: hidden !important;
 }
 //自定义滚动
-.el-table--scrollable-x .el-table__body-wrapper{
+.el-table--scrollable-x .el-table__body-wrapper,
+.el-table--scrollable-y .el-table__body-wrapper{
     overflow: hidden !important;
 }
 .el-table__body-wrapper:hover > .ps__rail-x,
 .el-table__body-wrapper:hover > .ps__rail-y {
   opacity: 0.6;
+}
+.el-table--scrollable-x .el-table__body-wrapper > .ps__rail-x,
+.el-table--scrollable-y .el-table__body-wrapper > .ps__rail-y {
+    display: block !important;
+    background-color: transparent !important;
 }
 

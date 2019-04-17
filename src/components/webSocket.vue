@@ -69,15 +69,32 @@ export default {
         getWSData: function(val) { 
             console.log(this.wsInfo instanceof Array)
             console.log(this.wsInfo)
-            if(val&&val.length>0){
-                for(var i=0;i<val.length;i++){
-                    for(var j=0;j<this.wsInfo.length;j++){
-                        if(val[i].matchID===this.wsInfo[j].matchID){
-                            this.wsInfo[j].value=val[i].value;
+            if(this.wsInfo instanceof Array){ //数组的时候
+                if(val&&val.length>0){
+                    for(let i=0;i<val.length;i++){
+                        for(let j=0;j<this.wsInfo.length;j++){
+                            if(val[i].matchID===this.wsInfo[j].matchID){
+                                this.wsInfo[j].value=val[i].value;
+                            }
                         }
                     }
                 }
+            }else{ //obj的时候,如果obj中有多个值需要动态改变时，上面的数组中也可用下面的方式
+                //给每个需改变的值比如value新增key_value
+                if(val&&val.length>0){
+                    for(let i=0;i<val.length;i++){
+                        for(let item in this.wsInfo){
+                            if(this.wsInfo[item]===val[i].key){  //这个key与需要改变的（key_value）匹配
+                                let vitem=item.split("_")[1];
+                                this.wsInfo[vitem]=val.data[i].value;
+                            }
+                        }
+                    }
+                    
+                }
+                
             }
+            
             
         },
     },

@@ -1,41 +1,58 @@
 <template>
-  <div class="home content">
-    <h2>一级菜单展示2</h2>
-    <router-view></router-view>
+  <div class="content">
+       <div class="home">
+      <h2>一级菜单展示2</h2>
+      <router-view></router-view>
+      <hr>
+      id:{{info.id}}----name:{{info.name}}
+      
+    </div>
     <hr>
-    id:{{info.id}}----name:{{info.name}}
-    <hr>
-    <h2>下拉框带树形</h2>
-    <el-select v-model="value6" placeholder="请选择">
-      <el-input
-        placeholder="输入关键字进行过滤"
-        v-model="filterText" style="position:absolute;top:6px;z-index:9;margin:0 auto;">
-      </el-input>
-      <el-option :value="value6" :label="value7" class="selectTree">
-          <el-tree show-checkbox ref="tree" node-key="id" class="filter-tree"
-            :data="data" 
-            :filter-node-method="filterNode"
-            :props="defaultProps" @check-change="selsetchangeTree">
-          </el-tree>
-      </el-option>
-    </el-select>
-    <hr>
+      <h2>下拉框带树形</h2>
+      <el-select v-model="value6" placeholder="请选择">
+        <el-input
+          placeholder="输入关键字进行过滤"
+          v-model="filterText" style="position:absolute;top:6px;z-index:9;margin:0 auto;">
+        </el-input>
+        <el-option :value="value6" :label="value7" class="selectTree">
+            <el-tree show-checkbox ref="tree" node-key="id" class="filter-tree"
+              :data="data" 
+              :filter-node-method="filterNode"
+              :props="defaultProps" @check-change="selsetchangeTree">
+            </el-tree>
+        </el-option>
+      </el-select>
+      <hr>
     <h2>自定义滚动</h2>
-    <div style="width:650px;margin:0 auto;">
-        <el-search-table-pagination  type="local"
-          v-scrollBar="'table'"
-            border :data="table_data" :columns="table_columns">            
-        </el-search-table-pagination>
-        <div class="home" v-scrollBar>
+    <div class="home" v-scrollBar>
             <ul class="list">
-              <li>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</li>
-              <li>炫光舞法</li>
-              <!--想想这里有一堆li-->
-              <li>天舞台</li>
+            <li>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</li>
+            <li>炫光舞法</li>
+            <!--想想这里有一堆li-->
+            <li>天舞台</li>
             </ul>
         </div>
+      <el-scrollbar class="scrollbar" style="height: 100px;width: 800px;border:1px solid #ccc;margin:0 auto;">
+            <div class="topology">
+                <div class="topology-con">
+                    <div class="topology-content">
+                        <p>内容增多任然居中,超出最外的高度出现滚动,如果最外层宽高是100%,则加上display:flex;</p>
+                        <p>内容增多任然居中,超出最外的高度出现滚动</p>
+                    </div>
+                </div>
+            </div>
+      </el-scrollbar>
+      <div style="width:650px;margin:0 auto;">
+          <el-search-table-pagination  type="local"
+            :height="'140px'"
+            v-scrollBar="'table'"
+              border :data="table_data" :columns="table_columns">            
+          </el-search-table-pagination>
+          
       </div>
+      
   </div>
+ 
 </template>
 
 <script>
@@ -156,7 +173,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="less">
   .el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
     background:#fff !important;
   }
@@ -171,4 +188,19 @@ export default {
     width: 80px;
     float:left;
   }
+  .topology{
+        display: table;
+        width:100%;
+        height:100%;
+        .topology-con{
+            display:table-cell;
+            vertical-align: middle;
+            text-align: center;
+            .topology-content{
+                width: 500px;
+                height:auto;
+                display:inline-block;
+            }
+        }
+    }
 </style>

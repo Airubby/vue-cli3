@@ -5,6 +5,10 @@
 .scrollbar .el-scrollbar__wrap { //给外层class不然element组件自己的会有问题比如下拉选项
     overflow-x: hidden !important;
 }
+.scrollbar .el-scrollbar__view{
+    height: 100%;
+    min-height: 100%;
+}
 //自定义滚动
 .el-table--scrollable-x .el-table__body-wrapper,
 .el-table--scrollable-y .el-table__body-wrapper{
@@ -20,3 +24,84 @@
     background-color: transparent !important;
 }
 
+/*弹窗确认*/
+.el-dialog,.el-message-box{
+    margin-bottom: 0 !important;
+    border-radius: 0px !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  .el-dialog__header,.el-message-box__header{
+    border-bottom: 1px solid #303555;
+    padding: 11px 20px 10px !important;
+    background: #2B3153;
+  }
+  .el-dialog__title,.el-message-box__title{
+    font-size: 14px !important;
+    color: #B9C6F2 !important;
+  }
+  .el-dialog__headerbtn:focus .el-dialog__close, .el-dialog__headerbtn:hover .el-dialog__close{
+    color: #4A78FF;
+  }
+  .el-dialog__body{
+    padding: 0px !important;
+    background: #1C2340;
+  }
+  .dialog-footer{
+    padding: 20px !important;
+    background: #2B3153;
+    text-align: right;
+  }
+  .dialog-footer,.el-message-box__btns{
+    border-top: 1px solid #303555;
+  }
+  .el-message-box__btns{
+    padding: 20px 20px 10px 20px !important;
+    background: #2B3153;
+  }
+  .loncom_dialog_scroll{
+    overflow: auto !important;
+  }
+  .el-message-box__content{
+    padding: 50px 15px !important;
+    background: #1C2340;
+    color: #B9C6F2 !important;
+  }
+  .el-message-box__btns .el-button{
+    color: #B9C6F2 !important;
+    padding: 8px 20px;
+  }
+  .el-message-box__btns .el-button--default{
+    border: 1px solid #e0e0e0;
+  }
+  .el-message-box__btns .el-button--default:hover{
+    border: 1px solid #4A78FF;
+    background: #B9C6F2;
+  }
+  .el-message-box__btns .el-button--primary{
+    color: #B9C6F2 !important;
+  }
+  /*button,radio*/
+  .el-button--primary{
+    background-color: #4A78FF !important;
+    border-color: #4A78FF !important;
+    color: #B9C6F2 !important;
+    padding: 9px 30px !important;
+  }
+  .el-button--default{
+    background: transparent !important;
+    border: 1px solid #4A78FF !important;
+    color: #4A78FF !important;
+    padding: 9px 30px !important;
+  }
+  .el-button--primary:focus,
+  .el-button--primary:hover{
+    background-color:#6E93FF !important;
+    border-color: #6E93FF !important;
+  }
+  .el-button--default:focus,
+  .el-button--default:hover{
+    background: #4A78FF !important;
+    border: 1px solid #4A78FF !important;
+    color: #B9C6F2 !important;
+  }

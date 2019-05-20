@@ -15,6 +15,13 @@
     
     <NavInfo></NavInfo>
     <hr>
+    <a href="javascript:void(0)" @click="switcFullScreen">
+        全屏
+    </a>
+    <a href="javascript:void(0)" @click="dialogShow">
+        弹窗
+    </a>
+    <hr>
     <el-radio-group v-model="lang" size="small">
       <el-radio label="zh" border>简体中文</el-radio>
       <el-radio label="en" border>English</el-radio>
@@ -36,13 +43,14 @@
       ></baidu-map>
     </el-scrollbar>
     </div>
+		<dialog-info :dialogInfo="info" v-if="info.visible"></dialog-info>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import dialogInfo from './dialog.vue'
 export default {
   name: 'home',
   provide(){
@@ -66,22 +74,31 @@ export default {
         data:'13',
         center:{lng: 116.404, lat: 39.915},
         zoom:15,
-        mapType:'BMAP_SATELLITE_MAP' 
+        mapType:'BMAP_SATELLITE_MAP',
+		  info:{
+			  visible:false
+		  } 
       }
     },
-  methods: {
-    testLang:function(){
-      this.$confirm(this.$t('layer.sure'), this.$t('layer.tips'), {
-          confirmButtonText: this.$t('button.ok'),
-          cancelButtonText: this.$t('button.cancel'),
-          type: 'warning'
-      }).then(() => {
-          this.$message.success(this.$t('button.ok'));
-      });
-    },
-  },
+	methods: {
+		testLang:function(){
+			this.$confirm(this.$t('layer.sure'), this.$t('layer.tips'), {
+				confirmButtonText: this.$t('button.ok'),
+				cancelButtonText: this.$t('button.cancel'),
+				type: 'warning'
+			}).then(() => {
+				this.$message.success(this.$t('button.ok'));
+			});
+		},
+		switcFullScreen:function(){
+			this.$tool.switcFullScreen();
+		},
+		dialogShow:function(){
+			this.info.visible=true;
+		}
+	},
   components: {
-    HelloWorld
+    HelloWorld,dialogInfo
   }
 }
 </script>

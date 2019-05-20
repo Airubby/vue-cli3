@@ -144,8 +144,29 @@ export default {
     mounted() {
         new this.$Swiper('#swiper-container', {
             // autoplay: false,//可选选项，自动滑动
+            // autoplay: {
+            //     delay: 5000,  //设置自动滑动时间就用obj设置参数就可以
+            // },
             slidesPerView: 'auto',
             spaceBetween: 30,
+            // slidesPerView: 3,  //显示几个slide
+            // breakpoints: {
+            //     // when window width is >= 320px
+            //     320: {
+            //     slidesPerView: 1,
+            //     spaceBetween: 20
+            //     },
+            //     // when window width is >= 1000px
+            //     1000: {
+            //     slidesPerView: 2,
+            //     spaceBetween: 30
+            //     },
+            //     // when window width is >= 1600px
+            //     1600: {
+            //     slidesPerView: 3,
+            //     spaceBetween: 40
+            //     }
+            // },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -154,7 +175,7 @@ export default {
             pagination: {
                 el: '.swiper-pagination',
             },
-            // slidesPerView: 3,
+            
         })
     },
     data() {

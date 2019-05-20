@@ -11,7 +11,7 @@
     "axios": "^0.18.0",
     "echarts": "^4.2.0-rc.2",
     "el-table-pagination": "^0.4.34",
-    "element-ui": "^2.4.6",
+    "element-ui": "^2.8.2",
     "js-cookie": "^2.2.0",
     "nprogress": "^0.2.0",
     "perfect-scrollbar": "^1.4.0",

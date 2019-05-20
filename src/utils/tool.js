@@ -25,7 +25,31 @@ function arrayContains(v,arr){
     return true;
   }
 }
-
+//全屏切换
+let isFullScreen=false;//是否是全屏状态
+function switcFullScreen(){
+    if(isFullScreen){//是全屏就退出全屏
+        if(document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }else{//不是就全屏
+        var element=document.documentElement;
+        if(element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if(element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+    }
+    isFullScreen=!isFullScreen;
+}
 function echartfn(ID,xData,yData){
     // 基于准备好的dom，初始化echarts实例
     let myChart = echarts.init(document.getElementById(ID))
@@ -42,6 +66,11 @@ function echartfn(ID,xData,yData){
             type: 'bar',
             data: yData
         }]
+    });
+    window.addEventListener("resize", () => { 
+        setTimeout(function(){
+            myChart.resize();
+        },0)
     });
     return myChart;
 }
@@ -160,4 +189,20 @@ function checkNumber(obj) {
     }
     
 }
-export default {arrayContains,Format,echartfn,wsConnection,checkPORT,checkIP,checkEMAIL,checkPHONE,checkNumber}
+function checkPasspord(obj) {
+    if (!obj.value) {
+        if(obj.rules.required){
+            obj.callback(new Error('不能为空'))
+        }else{
+            obj.callback()
+        }
+    } else {
+        let regPos = /^[A-Za-z0-9]{6,20}$/; 
+        if(regPos.test(obj.value)){
+            obj.callback()
+        }else{
+            obj.callback('密码6到20位且只能为数字和字母')
+        }
+    } 
+}
+export default {arrayContains,Format,switcFullScreen,echartfn,wsConnection,checkPORT,checkIP,checkEMAIL,checkPHONE,checkNumber,checkPasspord}

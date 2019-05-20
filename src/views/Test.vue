@@ -85,14 +85,9 @@ export default {
                 kittens.push(cats[i].name);
             }
         }
-        console.log(kittens)
         this.drawLine();
-        let myChart=this.$tool.echartfn('myChart',["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"],[5, 20, 36, 10, 10, 20]);
-        console.log(myChart)
-        window.onresize=function(){
-            myChart.resize();
-            _this.myChart1.resize();
-        }
+        this.$tool.echartfn('myChart',["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"],[5, 20, 36, 10, 10, 20]);
+       
     },
     data() {
         return {
@@ -124,7 +119,7 @@ export default {
    },
     methods:{
         drawLine(){
-            this.myChart1=this.$tool.echartfn('myChart1',["衬衫1","羊毛衫1","雪纺衫1","裤子1","高跟鞋1","袜子1"],[15, 25, 16, 20, 40, 20]);
+            this.$tool.echartfn('myChart1',["衬衫1","羊毛衫1","雪纺衫1","裤子1","高跟鞋1","袜子1"],[15, 25, 16, 20, 40, 20]);
         },
         handleCheckAllChange(val) {
             let arr=[];

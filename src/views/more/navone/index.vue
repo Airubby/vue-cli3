@@ -61,6 +61,8 @@ export default {
     console.log(this.$el.querySelector("#test").offsetHeight)
     console.log(this.$el.querySelectorAll('.test').length)
     console.log(this.$el.classList.contains('test'))
+    // 子组件中 使用时  要放在 this.$nextTick(function(){})  中
+    
   },
   data(){
       return{

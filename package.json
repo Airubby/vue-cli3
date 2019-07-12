@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "echarts": "^4.2.0-rc.2",
+    "echarts-liquidfill": "^2.0.5",
     "el-table-pagination": "^0.4.34",
     "element-ui": "^2.8.2",
     "js-cookie": "^2.2.0",

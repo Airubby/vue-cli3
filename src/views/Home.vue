@@ -11,6 +11,7 @@
       <img alt="Vue logo" src="../assets/images/logo.png">
       <img alt="Vue logo" :src="'static/images/logo.png'">
     -->
+    <img alt="Vue logo" :src="'static/images/'+$theme+'/logo.png'">
     <img alt="Vue logo" :src="require('../assets/images/'+$theme+'/logo.png')" v-if="$theme">
     
     <NavInfo></NavInfo>
@@ -28,7 +29,7 @@
     </el-radio-group>
     <hr>
     <!--后台返回了test权限，如果绑定其它的后台没有返回的就没有权限-->
-    <el-button type="primary" @click="testLang" v-permission="'test'">{{$t("message.testLang")}}</el-button>
+    <el-button type="primary" @click="testLang" v-permission="'3'">{{$t("message.testLang")}}</el-button>
     <hr>
     <el-radio-group v-model="mapType" style="margin:20px 0;">
       <el-radio-button label="BMAP_NORMAL_MAP">街道地图</el-radio-button>

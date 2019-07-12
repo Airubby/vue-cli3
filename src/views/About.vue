@@ -23,7 +23,7 @@
                 @resultData="resultData1"
                 :showIndex="true"
                 :page-sizes="[2,20,30]"
-                border :data="table_data1" :columns="table_columns">   
+                :data="table_data1" :columns="table_columns1">   
                 <el-table-column slot="prepend" type="selection"></el-table-column>
                 
                 <template slot-scope="scope" slot="preview-handle">
@@ -44,9 +44,10 @@
                 <el-table-column slot="prepend" type="selection"></el-table-column>
                 <el-table-column slot="prepend" type="index" label="序号"></el-table-column>
                 <template slot-scope="scope" slot="preview-handle">
-                    <span @click="postFn">post提交</span>
+                    <span @click="postFn(scope.row,scope.$index)">post提交</span>
                 </template>
             </el-search-table-pagination>
+            <!--刷新table搜索:this.$refs.thisRef.searchHandler(false);-->
             <hr>
             <div :class="sex|showClass">{{ emptyTitle|empty('如果emptyTitle为空就显示这个,根据sex为不同给定不同的class样式') }}</div>
             <hr>
@@ -140,6 +141,7 @@ export default {
         //         this.$message.warning(res.msg);
         //     }
         // })
+        this.getInfo();
     },
     mounted() {
         new this.$Swiper('#swiper-container', {
@@ -219,7 +221,13 @@ export default {
             table_columns:[
               { prop: 'name', label: '名称',minWidth:10},
               { prop: 'content', label: '内容',minWidth:10},
-              { prop: 'value', label: '值',minWidth:10},
+              { prop: 'value', label: '值',minWidth:10,sortable:true},
+              { prop: 'handle', label: '操作',slotName:'preview-handle',width:100},
+            ],
+            table_columns1:[
+              { prop: 'name', label: '名称',minWidth:10},
+              { prop: 'content', label: '内容',minWidth:10},
+              { prop: 'value', label: '值',minWidth:10,sortable:true},
               { prop: 'handle', label: '操作',slotName:'preview-handle',width:100},
             ],
             emptyTitle:"管道empty，如果为空就显示管道empty()中的值",
@@ -246,6 +254,24 @@ export default {
        }
     },
     methods:{
+        async getInfo(){
+            this.loading=true;
+            await this.getRate();
+            //await 多个...
+            this.loading=false;
+        },
+        getRate:function(){
+            return new Promise ((resolve, reject) => {
+                this.$api.get('/service/rate', {}, r => {
+                    if(r.err_code=="0"){
+                        
+                    }else{
+                        this.$message.warning(r.err_msg);
+                    }
+                    resolve();
+                });
+            })
+        },
         handleSelectionChange:function(val){
             console.log(val)
             this.multipleSelection=[];
@@ -256,7 +282,7 @@ export default {
         clickbtn:function(){
             this.disabled=true;
         },
-        postFn:function(){
+        postFn:function(row,index){
             API.postTest({name:'test',value:'342'}).then(res=> {
                 console.log(res)
                 if(res.code==200) {

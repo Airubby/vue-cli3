@@ -46,6 +46,18 @@
                 <el-checkbox v-for="city in cities" :label="city.value" :key="city.value" :disabled="city.dis">{{city.name}}</el-checkbox>
             </el-checkbox-group>
             <hr>
+            <el-tabs v-model="activeName"  @tab-click="handleClick">
+                <el-tab-pane label="用户管理" name="first">
+                    用户管理
+                </el-tab-pane>
+                <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+                <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+                <el-tab-pane label="定时任务补偿" name="fourth">
+                    这里如果也是tabs组件，用页面组件引用的话 得添加上  v-if="activeName=='fourth'"，不然里面的tabs初始化时没有下划线
+                </el-tab-pane>
+            </el-tabs>
+            <hr>
+            <p>string.replace(new RegExp(key,'g'),"b");  key是传来的变量</p>
         </div>
     </el-scrollbar>
     <webSocket :wsInfo="table_data" sendInfo="sysinfo"></webSocket>
@@ -114,10 +126,16 @@ export default {
                 {name:'广州',value:'广州',dis:true},
                 {name:'深圳',value:'深圳',dis:false}
             ],
-            isIndeterminate: false
+            isIndeterminate: false,
+            activeName:"first",
+            activeName1:"first"
+
        }
    },
     methods:{
+        handleClick:function(tab, event){
+            
+        },
         drawLine(){
             this.$tool.echartfn('myChart1',["衬衫1","羊毛衫1","雪纺衫1","裤子1","高跟鞋1","袜子1"],[15, 25, 16, 20, 40, 20]);
         },

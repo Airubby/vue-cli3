@@ -11,7 +11,9 @@ module.exports = {
     // compiler: false,
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    chainWebpack: () => {
+    chainWebpack: config => {
+        //移出预加载模块prefetch
+        config.plugins.delete('prefetch') 
     },
     configureWebpack: () => {
         // if (process.env.NODE_ENV === 'production') {
@@ -21,6 +23,7 @@ module.exports = {
         //     // 为开发环境修改配置...
         //     config.mode = 'development';
         // }
+        // Object.assign(a,b)将b赋给a,a中原有的保留，存在的覆盖
         // Object.assign(config, {
         //     // 开发生产共同配置
         //     resolve: {

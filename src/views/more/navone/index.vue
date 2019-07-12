@@ -9,6 +9,7 @@
       :on-success="onSuccess"
       :on-error="onError"
       :on-change="onchange"
+      :before-upload="beforeUpload"
       :show-file-list="false"
       :file-list="fileList"
       :auto-upload="false">
@@ -83,6 +84,7 @@ export default {
     onSuccess(res, file, fileList){
         this.fileList=[];
         console.log(res,file,fileList)
+        this.loading=false;
         if(res.err_code=="0"){
             console.log('上传成功')
         }else{//上传失败
@@ -108,6 +110,9 @@ export default {
             this.showInfo="只能上传xml/XML文件";
             this.xmlshow=true;
         }
+    }
+    beforeUpload(file){
+      this.loading=true;
     }
   },
   components: {

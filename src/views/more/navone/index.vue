@@ -110,7 +110,7 @@ export default {
             this.showInfo="只能上传xml/XML文件";
             this.xmlshow=true;
         }
-    }
+    },
     beforeUpload(file){
       this.loading=true;
     }

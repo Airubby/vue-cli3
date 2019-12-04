@@ -198,6 +198,7 @@ function checkPasspord(obj) {
         }
     } else {
         let regPos = /^[A-Za-z0-9]{6,20}$/; 
+        // reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&amp;*()_+`\-={}:";'&lt;&gt;?,.\/]).{8,64}$/; 包含数字字母大小写
         if(regPos.test(obj.value)){
             obj.callback()
         }else{

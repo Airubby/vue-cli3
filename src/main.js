@@ -7,11 +7,11 @@ import store from './store/index'
 import axios from 'axios'
 import api from './api' //用request，为每个模块的调用写一个js
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css'
 import ElSearchTablePagination from 'el-table-pagination'
 import NavInfo from './components/navInfo'
 import Swiper from 'swiper'  //3.4.2 打包不报错，4.+打包报错
-import 'swiper/dist/css/swiper.min.css'
+// import 'swiper/dist/css/swiper.min.css'
 import './utils/filters' // 自定义过滤器
 import tool from './utils/tool'  //工具函数
 // import 'promise-polyfill'  //兼容低版本浏览器   import 'babel-polyfill'
